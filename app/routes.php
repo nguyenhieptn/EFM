@@ -11,7 +11,7 @@
 |
 */
 
-print App::environment();
+//print App::environment();
 
 Route::get('/', function()
 {
@@ -24,4 +24,10 @@ Route::get('users',function()
     $users = User::all();
 
     return View::make('users')->with('users',$users);
+});
+
+
+//Admin route sections
+Route::group(array("prefix"=>"admin"), function(){
+    Route::get("user/login",'Controllers\Admin\UserController@login');
 });
