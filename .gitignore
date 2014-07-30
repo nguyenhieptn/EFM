@@ -1,4 +1,5 @@
 /bootstrap/compiled.php
+/bootstrap/start.php
 /vendor
 /.idea
 composer.phar
@@ -7,5 +8,4 @@ composer.lock
 .env.php
 .DS_Store
 Thumbs.db
-**/.idea/workspace.xml
-**workspace.xml 
+/*/workspace.xml
