@@ -12,22 +12,23 @@
 */
 
 //print App::environment();
+Route::get('admin/','controllers\admin\UserController@login');
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+//admin user login system
+Route::get("admin/user/login",'controllers\admin\UserController@login');
+Route::post("admin/user/actionlogin",'controllers\admin\UserController@actionlogin');
+Route::get("admin/user/logout",'controllers\admin\UserController@logout');
 
 
-Route::get('users',function()
-{
-    $users = User::all();
-
-    return View::make('users')->with('users',$users);
+Route::filter('auth.admin', function() {
+    // if not logged in redirect to the login page
+    if (Auth::guest()) return Redirect::guest('admin/user/login');
 });
 
 
 //Admin route sections
-Route::group(array("prefix"=>"admin"), function(){
-    Route::get("user/login",'Controllers\Admin\UserController@login');
+Route::group(array("prefix"=>"admin",'before' => 'auth.admin'), function(){
+    Route::get("dashboard/",'controllers\admin\DashController@index');
 });
+
+//if no admin tried to access
