@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'HiepLaptop' => array('NguyenHiep-Lap'),
+	'HiepDesktop' => array('NguyenHiep-Lap'),
 
 ));
 

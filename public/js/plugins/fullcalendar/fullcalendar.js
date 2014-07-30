@@ -1644,7 +1644,7 @@ var dateFormatters = {
 		}
 		return ['st', 'nd', 'rd'][date%10-1] || 'th';
 	},
-	w   : function(d, o) { // local
+	w   : function(d, o) { // HiepDesktop
 		return o.weekNumberCalculation(d);
 	},
 	W   : function(d) { // ISO
