@@ -1,6 +1,7 @@
 <?php
 namespace controllers\admin;
 use models\admin\Category;
+use Illuminate\Support\Facades\Input;
 
 class CategoryController extends \BaseController {
 
@@ -35,7 +36,20 @@ class CategoryController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        $input = Input::all();
+        $validation = \Validator::make($input, Category::rules());
+
+        if ($validation->passes())
+        {
+            Category::create($input);
+
+            return Redirect::route('category.index');
+        }
+
+        return Redirect::route('category.index')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
 	}
 
 

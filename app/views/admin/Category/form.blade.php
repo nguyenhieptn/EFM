@@ -1,4 +1,32 @@
-<div class="box box-warning">
+{{ Form::open(array('url'=>'admin/category')) }}
+<div class="box box-warning row">
+    <div class="box-header">
+        <h3 class="box-title">Insert new Category</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-6">
+            <div class="form-group has-success">
+                <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Category Name</label>
+                {{ Form::text('name',Input::old('name'),array('class'=>'form-control','placeholder'=>'Enter...','id'=>'inputSuccess')) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-success">
+                <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label>
+                <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+            </div>
+        </div>
+    </div> <!-- /. box-body -->
+    <div class="box-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div><!-- /. box-footer -->
+</div>
+{{ Form::token();}}
+{{ Form::close() }}
+
+
+
+<div class="box box-warning row">
     <div class="box-header">
         <h3 class="box-title">General Elements</h3>
     </div><!-- /.box-header -->
