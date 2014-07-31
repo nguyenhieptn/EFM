@@ -1,5 +1,6 @@
 /bootstrap/compiled.php
 /bootstrap/start.php
+/bootstrap/environment.php
 **/bootstrap/start.php
 /vendor
 /.idea
