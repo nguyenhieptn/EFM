@@ -32,7 +32,7 @@
 </head>
 <body class="skin-blue">
 <!-- header -->
-{{ View::make('header') }}
+{{ View::make('admin\backend_layout\left') }}
 
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <aside class="left-side sidebar-offcanvas">
