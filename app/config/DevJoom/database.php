@@ -23,9 +23,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'efm',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'devjoom_efm',
+			'username'  => 'devjoom_efm',
+			'password'  => 'efm123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
