@@ -32,17 +32,17 @@
 </head>
 <body class="skin-blue">
 <!-- header -->
-{{ View::make('admin\backend_layout\left') }}
+{{ View::make('admin.backend_layout.header') }}
 
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <aside class="left-side sidebar-offcanvas">
         <!-- Left side column. contains the logo and sidebar -->
-        {{ View::make('admin\backend_layout\left') }}
+        {{ View::make('admin.backend_layout.left') }}
     </aside>
     <aside class="right-side">
         <!-- Right side column. Contains the navbar and content of the page -->
         <!-- Content Header (Page header) -->
-        {{ View::make('admin\backend_layout\contentheader') }}
+        {{ View::make('admin.backend_layout.contentheader') }}
 
         <!-- Main content get from specific view -->
         @yield('content')
