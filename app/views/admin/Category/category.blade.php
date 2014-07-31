@@ -40,5 +40,6 @@
         </div><!-- /.box-body -->
         @endif
     </div><!-- /.box -->
+    {{  View::make('admin\Category\form') }}
 </div>
 @stop
