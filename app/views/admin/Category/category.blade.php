@@ -32,8 +32,8 @@
                 <tr>
                     <td>{{ $c->id }}</td>
                     <td>{{ $c->name }}</td>
-                    <td>{{ $c->creaded_at }}</td>
-                    <td>{{ $c->updated_at }}</td>
+                    <td>{{ date("d m Y",strtotime($c->created_at)) }}</td>
+                    <td>{{ date("d m Y",strtotime($c->updated_at))  }}</td>
                 </tr>
                 @endforeach
             </tbody></table>
