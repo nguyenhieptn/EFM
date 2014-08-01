@@ -1,5 +1,7 @@
 <?php namespace controllers\admin;
 
+use Illuminate\Support\Facades\View;
+
 class IncomeController extends \BaseController {
 
 	/**
@@ -9,7 +11,7 @@ class IncomeController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		return View::make('admin.Income.income');
 	}
 
 
