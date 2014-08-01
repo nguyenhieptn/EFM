@@ -59,7 +59,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ URL::to('admin/category/1') }}"><i class="fa fa-angle-double-right"></i> Expense</a></li>
-                    <li><a href="{{ URL::to('admin/category/1') }}"><i class="fa fa-angle-double-right"></i> Income</a></li>
+                    <li><a href="{{ URL::to('admin/category/0') }}"><i class="fa fa-angle-double-right"></i> Income</a></li>
 
                 </ul>
             </li>

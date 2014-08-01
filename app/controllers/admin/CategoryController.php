@@ -1,21 +1,26 @@
 <?php
 namespace controllers\admin;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use models\admin\Category;
 
 class CategoryController extends \BaseController {
-
-	/**
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($cattype)
+	public function index($cattype = null)
 	{
-        var_dump($cattype); exit;
+        if(!isset($cattype)){
+            $cattype = Session::get('cattype');
+        }else {
+            Session::set('cattype',$cattype);
+        }
 
-		$categories = Category::all();
+		$categories = Category::whereRaw('type = ?',array($cattype))->get();
 
-        return \View::make('admin.Category.category',compact('categories'));
+        return \View::make('admin.Category.category',compact('categories'))->with('cattype',$cattype);
 	}
 
 
@@ -44,7 +49,7 @@ class CategoryController extends \BaseController {
         {
             Category::create($input);
 
-            return \Redirect::route('admin.category.index');
+            return \Redirect::to('admin/category/'.$input['type']);
         }
 
         return \Redirect::route('admin.category.index')
@@ -101,7 +106,7 @@ class CategoryController extends \BaseController {
 
         Category::find($id)->delete();
 
-        return \Redirect::route('admin.category.index');
+        return \Redirect::to('admin/category/'.Session::get('cattype'));
 	}
 
 

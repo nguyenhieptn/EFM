@@ -54,6 +54,6 @@
         </div><!-- /.box-body -->
         @endif
     </div><!-- /.box -->
-    {{  View::make('admin.Category.form') }}
+    {{  View::make('admin.Category.form')->with('cattype',$cattype) }}
 </div>
 @stop

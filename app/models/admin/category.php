@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent;
 class Category extends \Eloquent
 {
     protected $table='categories';
-    protected $fillable = array('name');
+    protected $fillable = array('name','type');
 
     public static function rules()
     {

@@ -18,7 +18,8 @@
         <div class="col-md-6">
             <button type="submit" class="btn btn-primary jm_submit">Submit</button>
         </div>
-    {{ Form::token();}}
+    {{ Form::hidden('type', $cattype ) }}
+    {{ Form::token() }}
     {{ Form::close() }}
     </div> <!-- /. box-body -->
 </div>
