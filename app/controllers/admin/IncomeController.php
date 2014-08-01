@@ -1,21 +1,15 @@
-<?php
-namespace controllers\admin;
-use models\admin\Category;
+<?php namespace controllers\admin;
 
-class CategoryController extends \BaseController {
+class IncomeController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($cattype)
+	public function index()
 	{
-        var_dump($cattype); exit;
-
-		$categories = Category::all();
-
-        return \View::make('admin.Category.category',compact('categories'));
+		//
 	}
 
 
@@ -37,20 +31,7 @@ class CategoryController extends \BaseController {
 	 */
 	public function store()
 	{
-        $input = \Input::all();
-        $validation = \Validator::make($input, Category::rules());
-
-        if ($validation->passes())
-        {
-            Category::create($input);
-
-            return \Redirect::route('admin.category.index');
-        }
-
-        return \Redirect::route('admin.category.index')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+		//
 	}
 
 
@@ -98,10 +79,7 @@ class CategoryController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-
-        Category::find($id)->delete();
-
-        return \Redirect::route('admin.category.index');
+		//
 	}
 
 

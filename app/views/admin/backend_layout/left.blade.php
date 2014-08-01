@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="pages/widgets.html">
+                <a href="{{ URL::to('admin/income')}}">
                     <i class="fa fa-sign-in"></i> <span>Income</span>
                 </a>
             </li>
@@ -51,10 +51,17 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="{{ URL::to('admin/category') }}">
-                    <i class="fa fa-th"></i> <span>Category</span>
+            <li class="treeview" >
+                <a href="#">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <span>Category</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ URL::to('admin/category/1') }}"><i class="fa fa-angle-double-right"></i> Expense</a></li>
+                    <li><a href="{{ URL::to('admin/category/1') }}"><i class="fa fa-angle-double-right"></i> Income</a></li>
+
+                </ul>
             </li>
             <li class="treeview">
                 <a href="#">

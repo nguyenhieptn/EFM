@@ -29,7 +29,9 @@ Route::filter('auth.admin', function() {
 //Admin route sections
 Route::group(array("prefix"=>"admin",'before' => 'auth.admin'), function(){
     Route::get("dashboard/",'controllers\admin\DashController@index');
+    Route::get("category/{cattype}",'controllers\admin\CategoryController@index');
     Route::resource("category",'controllers\admin\CategoryController');
+    Route::resource("income",'controllers\admin\IncomeController');
 });
 
 //if no admin tried to access

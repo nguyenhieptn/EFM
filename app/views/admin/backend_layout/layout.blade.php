@@ -22,6 +22,7 @@
     {{ HTML::style('css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}
     <!-- Theme style -->
     {{ HTML::style('css/AdminLTE.css') }}
+    {{ HTML::style('css/admin.exp.css') }}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

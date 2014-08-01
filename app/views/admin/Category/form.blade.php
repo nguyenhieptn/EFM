@@ -7,7 +7,7 @@
             </ul>
         @endif
     </div><!-- /.box-header -->
-    <div class="box-body">
+    <div class="box-body row-fluid">
     {{ Form::open(array('url'=>'admin/category')) }}
         <div class="col-md-6">
             <div class="form-group has-success">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary jm_submit">Submit</button>
         </div>
     {{ Form::token();}}
     {{ Form::close() }}
