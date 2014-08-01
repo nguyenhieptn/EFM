@@ -25,15 +25,29 @@
                 <tbody><tr>
                     <th>ID</th>
                     <th>Category Name</th>
-                    <th>Created</th>
-                    <th>Updated</th>
+                    <th class="hidden-xs hidden-sm">Created</th>
+                    <th class="hidden-xs hidden-sm">Updated</th>
+                    <th>Modify</th>
                 </tr>
                 @foreach ($categories as $c)
                 <tr>
                     <td>{{ $c->id }}</td>
                     <td>{{ $c->name }}</td>
-                    <td>{{ date("d m Y",strtotime($c->created_at)) }}</td>
-                    <td>{{ date("d m Y",strtotime($c->updated_at))  }}</td>
+                    <td class="hidden-xs hidden-sm">{{ date("d m Y",strtotime($c->created_at)) }}</td>
+                    <td class="hidden-xs hidden-sm">{{ date("d m Y",strtotime($c->updated_at))  }}</td>
+                    <td>
+                        <div class="tools">
+                        {{ Form::open(array('method' => 'DELETE', 'route' =>
+                         array('admin.category.destroy', $c->id))) }}
+                        {{ Form::submit('delete', array('class' => 'fa fa-trash-o')) }}
+
+                        {{ Form::close() }}
+                        <!--
+                        <i class="fa fa-trash-o" id="delete"></i>
+                            <i class="fa fa-edit"></i>
+                        -->
+                        </div>
+                    </td>
                 </tr>
                 @endforeach
             </tbody></table>

@@ -83,6 +83,7 @@
 {{ HTML::script('js/plugins/iCheck/icheck.min.js')}}
 <!-- AdminLTE App -->
 {{ HTML::script('js/AdminLTE/app.js')}}
+{{ HTML::script('js/AdminLTE/admin.js')}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{ HTML::script('js/AdminLTE/dashboard.js')}}
 <!-- AdminLTE for demo purposes -->

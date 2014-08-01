@@ -42,10 +42,10 @@ class CategoryController extends \BaseController {
         {
             Category::create($input);
 
-            return \Redirect::to('admin/category');
+            return \Redirect::route('admin.category.index');
         }
 
-        return Redirect::to('category.index')
+        return \Redirect::route('admin.category.index')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
@@ -96,7 +96,10 @@ class CategoryController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+
+        Category::find($id)->delete();
+
+        return \Redirect::route('admin.category.index');
 	}
 
 

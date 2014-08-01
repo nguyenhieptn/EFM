@@ -10,7 +10,7 @@ class Category extends \Eloquent
     public static function rules()
     {
         return  array(
-            'name'    => 'required|alphaNum', // name of category
+            'name'    => 'required', // name of category
         );
     }
 }
