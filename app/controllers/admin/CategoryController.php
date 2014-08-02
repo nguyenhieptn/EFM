@@ -18,7 +18,7 @@ class CategoryController extends \BaseController {
             Session::set('cattype',$cattype);
         }
 
-		$categories = \Category::whereRaw('type = ?',array($cattype))->get();
+		$categories = \Category::whereRaw('type = ? and user_id=?',array($cattype,\Auth::id()))->get();
 
         return \View::make('admin.Category.category',compact('categories'))->with('cattype',$cattype);
 	}
