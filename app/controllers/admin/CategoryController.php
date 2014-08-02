@@ -2,7 +2,6 @@
 namespace controllers\admin;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
-use models\admin\Category;
 
 class CategoryController extends \BaseController {
     /**
@@ -18,7 +17,7 @@ class CategoryController extends \BaseController {
             Session::set('cattype',$cattype);
         }
 
-		$categories = Category::whereRaw('type = ?',array($cattype))->get();
+		$categories = \Category::whereRaw('type = ?',array($cattype))->get();
 
         return \View::make('admin.Category.category',compact('categories'))->with('cattype',$cattype);
 	}
@@ -47,7 +46,7 @@ class CategoryController extends \BaseController {
 
         if ($validation->passes())
         {
-            Category::create($input);
+            \Category::create($input);
 
             return \Redirect::to('admin/category/'.$input['type']);
         }
