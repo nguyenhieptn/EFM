@@ -1,6 +1,8 @@
 <?php namespace controllers\admin;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\Security\Core\Tests\Validator\Constraints\UserPasswordValidatorTest;
 
 class IncomeController extends \BaseController {
 
@@ -11,6 +13,10 @@ class IncomeController extends \BaseController {
 	 */
 	public function index()
 	{
+        $id = Auth::id();
+        $accounts = \User::find($id)->accounts;
+        var_dump($accounts);
+
 		return View::make('admin.Income.income');
 	}
 

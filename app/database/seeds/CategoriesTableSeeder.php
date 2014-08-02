@@ -8,10 +8,13 @@ class CategoriesTableSeeder extends Seeder
         DB::table('categories')->delete();
         DB::table('categories')->insert(
             array(
-                array('name'=>'Ca Nhan'),
-                array('name'=>'Vui Choi/Giai Tri'),
-                array('name'=>'Mua Sam'),
-                array('name'=>'Hieu Hy/Tham hoi'),
+                array('name'=>'Ca Nhan','type'=>'1'),
+                array('name'=>'Vui Choi/Giai Tri','type'=>'1'),
+                array('name'=>'Mua Sam','type'=>'1'),
+                array('name'=>'Hieu Hy/Tham hoi','type'=>'1'),
+                array('name'=>'Luong','type'=>'0'),
+                array('name'=>'Thuong','type'=>'0'),
+                array('name'=>'Hoa Hong','type'=>'0'),
             )
         );
     }
