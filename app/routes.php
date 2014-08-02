@@ -33,6 +33,7 @@ Route::group(array("prefix"=>"admin",'before' => 'auth.admin'), function(){
     Route::get("category/{cattype}",'controllers\admin\CategoryController@index');
     Route::resource("category",'controllers\admin\CategoryController');
     Route::resource("income",'controllers\admin\IncomeController');
+    Route::resource("account",'controllers\admin\AccountController');
 });
 
 //if no admin tried to access

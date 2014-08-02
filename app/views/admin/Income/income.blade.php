@@ -38,7 +38,7 @@
                                             <td>{{ date("d/m/Y",strtotime($i->created_at)) }}</td>
                                             <td>{{ $i->description }} </td>
                                             <td>{{ $i->name }}</td>
-                                            <td width="20px">{{ $i->amount }}</td>
+                                            <td width="20px" align="right">{{ number_format($i->amount,0,'','.') }}</td>
                                         </tr>
                                         @endforeach
 

@@ -38,7 +38,7 @@
             <button class="btn btn-success btn-lg">Submit Income</button>
         </div>
         {{ Form::hidden('user_id',Auth::id()) }}
-        {{ Form::token() }};
+        {{ Form::token() }}
         {{ Form::close() }}
     </div><!-- /.box-body -->
 </div>
