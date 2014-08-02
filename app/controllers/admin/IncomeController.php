@@ -59,7 +59,6 @@ class IncomeController extends \BaseController {
 	public function store()
 	{
 		$input = \Input::all();
-        var_dump($input);
         $validation = \Validator::make($input, Income::rules());
 
         if ($validation->passes())

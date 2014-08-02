@@ -8,7 +8,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
-                            {{ View::make('admin.Income.form')->with('categories',$categories)->with('accounts',$accounts) }}
+                              @include('admin.Income.form')
                         </div><!-- /.col (LEFT) -->
 
                         <div class="col-md-9 col-sm-8">

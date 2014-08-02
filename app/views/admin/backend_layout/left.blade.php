@@ -30,14 +30,15 @@
             </li>
             <li>
                 <a href="{{ URL::to('admin/income')}}">
-                    <i class="fa fa-sign-in"></i> <span>Income</span>
+                    <i class="fa fa-sign-out"></i> <span>Expense</span>
                 </a>
             </li>
             <li>
-                <a href="pages/widgets.html">
-                    <i class="fa fa-sign-out"></i> <span>Outcome</span>
+                <a href="{{ URL::to('admin/income')}}">
+                    <i class="fa fa-sign-in"></i> <span>Income</span>
                 </a>
             </li>
+
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>

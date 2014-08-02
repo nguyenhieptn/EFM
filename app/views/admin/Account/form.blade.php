@@ -1,6 +1,6 @@
 <div class="box box-warning">
     <div class="box-header">
-        <h3 class="box-title">Insert new Category</h3>
+        <h3 class="box-title">Insert new Account</h3>
         @if ($errors->any())
             <ul>
                 {{ implode('', $errors->all('<li class="error">:message</li>')) }}
