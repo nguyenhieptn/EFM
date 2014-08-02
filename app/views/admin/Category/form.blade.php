@@ -19,6 +19,7 @@
             <button type="submit" class="btn btn-primary jm_submit">Submit</button>
         </div>
     {{ Form::hidden('type', $cattype ) }}
+    {{ Form::hidden('user_id', Auth::id() ) }}
     {{ Form::token() }}
     {{ Form::close() }}
     </div> <!-- /. box-body -->
