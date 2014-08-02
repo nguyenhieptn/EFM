@@ -43,7 +43,7 @@ class CategoryController extends \BaseController {
 	public function store()
 	{
         $input = \Input::all();
-        $validation = \Validator::make($input, Category::rules());
+        $validation = \Validator::make($input, \Category::rules());
 
         if ($validation->passes())
         {
