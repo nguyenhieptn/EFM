@@ -82,6 +82,9 @@
 {{ HTML::script('js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}
 <!-- iCheck -->
 {{ HTML::script('js/plugins/iCheck/icheck.min.js')}}
+
+<!-- currency -->
+{{ HTML::script('js/plugins/jquery.formatCurrency-1.4.0.min')}}
 <!-- AdminLTE App -->
 {{ HTML::script('js/AdminLTE/app.js')}}
 {{ HTML::script('js/AdminLTE/admin.js')}}
@@ -89,5 +92,6 @@
 {{ HTML::script('js/AdminLTE/dashboard.js')}}
 <!-- AdminLTE for demo purposes -->
 {{ HTML::script('js/AdminLTE/demo.js')}}
+
 </body>
 </html>

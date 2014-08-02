@@ -14,6 +14,13 @@ var left_side_width = 220; //Sidebar width in pixels
 $(function() {
     "use strict";
 
+
+    //currencty
+    $('.currency').blur(function()
+    {
+        $('.currency').formatCurrency();
+    });
+
     //Enable sidebar toggle
     $("[data-toggle='offcanvas']").click(function(e) {
         e.preventDefault();
