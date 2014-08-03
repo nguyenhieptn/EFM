@@ -8,13 +8,13 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
-                              @include('admin.Income.form')
+                              @include('admin.Expense.form')
                         </div><!-- /.col (LEFT) -->
 
                         <div class="col-md-9 col-sm-8">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Latest Incomes</h3>
+                                    <h3 class="box-title">Latest Expense list</h3>
                                     <div class="box-tools">
                                         <div class="input-group">
                                             <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
@@ -32,10 +32,9 @@
                                             <th width="40px">Category</th>
                                             <th>Amount</th>
                                         </tr>
-                                        <?php $total = 0;?>
-
-                                        @foreach($incomes as $i)
-                                        <?php $total+=$i->amount; ?>
+                                        <?php $total=0; ?>
+                                        @foreach($expenses as $i)
+                                        <?php  $total = $total+$i->amount ?>
                                         <tr>
                                             <td>{{ date("d/m/Y",strtotime($i->created_at)) }}</td>
                                             <td>{{ $i->description }} </td>

@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
+use models\admin\Expense;
 use models\admin\Income;
 use Symfony\Component\Security\Core\Tests\Validator\Constraints\UserPasswordValidatorTest;
 
-class IncomeController extends \BaseController {
+class ExpenseController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,25 +19,25 @@ class IncomeController extends \BaseController {
         //get user id and cat acc
         $id = Auth::id();
         $accounts = \User::find($id)->accounts()->get();
-        $categories = \User::find($id)->categories()->where('type','=','0')->get();
+        $categories = \User::find($id)->categories()->where('type','=','1')->get();
 
         //get current records
         //$incomes = Income::with('categories','accounts')->get();
-        $incomes = \DB::table('incomes')
-                            ->join('categories', 'categories.id', '=', 'incomes.category_id')
-                            ->join('accounts', 'accounts.id', '=', 'incomes.account_id')
-                            ->select('incomes.id',
-                                        'incomes.created_at',
-                                        'incomes.description',
-                                        'incomes.amount',
+        $expenses = \DB::table('expenses')
+                            ->join('categories', 'categories.id', '=', 'expenses.category_id')
+                            ->join('accounts', 'accounts.id', '=', 'expenses.account_id')
+                            ->select('expenses.id',
+                                        'expenses.created_at',
+                                        'expenses.description',
+                                        'expenses.amount',
                                         'categories.name')
-                            ->orderBy('incomes.created_at','desc')
+                            ->orderBy('expenses.created_at','desc')
                             ->get();
 
         //render view
-        return View::make('admin.Income.income')->with('accounts',$accounts)
+        return View::make('admin.Expense.expense')->with('accounts',$accounts)
                                                 ->with('categories',$categories)
-                                                ->with('incomes',$incomes);
+                                                ->with('expenses',$expenses);
 	}
 
 
@@ -59,16 +60,16 @@ class IncomeController extends \BaseController {
 	public function store()
 	{
 		$input = \Input::all();
-        $validation = \Validator::make($input, Income::rules());
+        $validation = \Validator::make($input, Expense::rules());
 
         if ($validation->passes())
         {
-            Income::create($input);
+            Expense::create($input);
 
-            return \Redirect::to('admin/income');
+            return \Redirect::to('admin/expense');
         }
 
-        return \Redirect::route('admin.income.index')
+        return \Redirect::route('admin.expense.index')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');

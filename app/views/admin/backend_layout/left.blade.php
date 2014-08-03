@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ URL::to('admin/income')}}">
+                <a href="{{ URL::to('admin/expense')}}">
                     <i class="fa fa-sign-out"></i> <span>Expense</span>
                 </a>
             </li>
