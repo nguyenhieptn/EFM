@@ -6,6 +6,10 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
+                    <div class="row"> <!-- charts system -->
+                        <div class="col-md-6">@include('admin.Expense.ExpenseChart')</div>
+                        <div class="col-md-6">asdfasdf</div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
                               @include('admin.Expense.form')
@@ -68,4 +72,15 @@
     <!-- MAILBOX END -->
 
 </section>
+@stop
+@section('foot')
+@parent
+<!-- FLOT CHARTS -->
+{{ HTML::script('js/flot/jquery.flot.min.js')}}
+{{ HTML::script('js/flot/jquery.flot.resize.min.js')}}
+{{ HTML::script('js/flot/jquery.flot.pie.min.js')}}
+{{ HTML::script('js/flot/jquery.flot.categories.min.js')}}
+
+
+
 @stop
