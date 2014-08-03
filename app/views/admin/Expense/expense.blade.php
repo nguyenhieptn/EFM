@@ -87,12 +87,12 @@
         * ---------
         */
 
-        var bar_data = {
-        data: [[10, "Income"], [8,"Expense"]],
-        color: "#3c8dbc"
-        };
+        var bar_data = [
+                { data:[[18833, "Income"]], color:"green" },
+                { data:[[6000, "Expend"]], color:"red" }
+        ];
 
-        $.plot("#bar-chart", [bar_data], {
+        $.plot("#bar-chart", bar_data, {
             grid: {
                 borderWidth: 1,
                 borderColor: "#f3f3f3",
@@ -116,6 +116,9 @@
                 autoscaleMargin:0.1,
                 min: 0,
                 ticks: 2
+            },
+            valueLabels: {
+                show: true
             }
         });
     });
