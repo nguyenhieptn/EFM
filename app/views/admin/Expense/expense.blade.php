@@ -76,11 +76,49 @@
 @section('foot')
 @parent
 <!-- FLOT CHARTS -->
-{{ HTML::script('js/flot/jquery.flot.min.js')}}
-{{ HTML::script('js/flot/jquery.flot.resize.min.js')}}
-{{ HTML::script('js/flot/jquery.flot.pie.min.js')}}
-{{ HTML::script('js/flot/jquery.flot.categories.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.pie.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
+<script type="text/javascript">
+    $(function() {
+        /*
+        * BAR CHART
+        * ---------
+        */
 
+        var bar_data = {
+        data: [[10, "Income"], [8,"Expense"]],
+        color: "#3c8dbc"
+        };
 
-
+        $.plot("#bar-chart", [bar_data], {
+            grid: {
+                borderWidth: 1,
+                borderColor: "#f3f3f3",
+                tickColor: "#f3f3f3"
+            },
+            series: {
+                bars: {
+                    show: true,
+                    barWidth: 0.5,
+                    align: "center",
+                    horizontal: true
+                }
+            },
+            yaxis: {
+                mode: "categories",
+                tickLength: 2,
+                axisMargin: 10,
+                autoscaleMargin: 0.05
+            },
+            xaxis: {
+                autoscaleMargin:0.1,
+                min: 0,
+                ticks: 2
+            }
+        });
+    });
+/* END BAR CHART */
+</script>
 @stop

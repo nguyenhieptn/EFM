@@ -12,7 +12,7 @@
 */
 
 //print App::environment();
-Route::get('/','controllers\admin\UserController@login');
+//Route::get('/index.php','controllers\admin\UserController@login');
 Route::get('admin/','controllers\admin\UserController@login');
 
 //admin user login system
