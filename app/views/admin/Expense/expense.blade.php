@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-bsody">
                     <div class="row"> <!-- charts system -->
                         <div class="col-md-6">@include('admin.Expense.ExpenseChart')</div>
-                        <div class="col-md-6">asdfasdf</div>
+                        <div class="col-md-6">@include('admin.Expense.CategoriesChart')</div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
@@ -80,6 +80,8 @@
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.pie.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.barnumbers.js')}}
+
 <script type="text/javascript">
     $(function() {
         /*
@@ -88,7 +90,7 @@
         */
 
         var bar_data = [
-                { data:[[18833, "Income"]], color:"green" },
+                { data:[[20000, "Income"]], color:"blue" },
                 { data:[[6000, "Expend"]], color:"red" }
         ];
 
@@ -103,7 +105,8 @@
                     show: true,
                     barWidth: 0.5,
                     align: "center",
-                    horizontal: true
+                    horizontal: true,
+                    showNumbers: true
                 }
             },
             yaxis: {
@@ -122,6 +125,35 @@
             }
         });
     });
-/* END BAR CHART */
+
+    /*
+     * cat BAR CHART
+     * ---------
+     */
+
+    var bar_data = {
+        data: [["January", 10], ["February", 8], ["March", 4], ["April", 13], ["May", 17], ["June", 9]],
+        color: "#3c8dbc"
+    };
+    $.plot("#cat-bar-chart", [bar_data], {
+        grid: {
+            borderWidth: 1,
+            borderColor: "#f3f3f3",
+            tickColor: "#f3f3f3"
+        },
+        series: {
+            bars: {
+                show: true,
+                barWidth: 0.5,
+                align: "center"
+            }
+        },
+        xaxis: {
+            mode: "categories",
+            tickLength: 0
+        }
+    });
+    /* END BAR CHART */
+
 </script>
 @stop
