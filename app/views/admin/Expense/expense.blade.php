@@ -7,8 +7,7 @@
             <div class="box box-solid">
                 <div class="box-bsody">
                     <div class="row"> <!-- charts system -->
-                        <div class="col-md-6">@include('admin.Expense.ExpenseChart')</div>
-                        <div class="col-md-6">@include('admin.Expense.CategoriesChart')</div>
+                        <div class="col-md-12">@include('admin.Expense.ExpenseChart')</div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
@@ -90,13 +89,13 @@
         */
 
         var bar_data = [
-                { data:[[20000, "Income"]], color:"blue" },
-                { data:[[6000, "Expend"]], color:"red" }
+                { data:[[19800, "Income"]], color:"#eb3d3d" },
+                { data:[[6000, "Expend"]], color:"#2ca9f2" }
         ];
 
         $.plot("#bar-chart", bar_data, {
             grid: {
-                borderWidth: 1,
+                borderWidth: 0.5,
                 borderColor: "#f3f3f3",
                 tickColor: "#f3f3f3"
             },
@@ -112,13 +111,13 @@
             yaxis: {
                 mode: "categories",
                 tickLength: 2,
-                axisMargin: 10,
-                autoscaleMargin: 0.05
+                axisMargin: 0,
+                autoscaleMargin: 0.08
             },
             xaxis: {
-                autoscaleMargin:0.1,
+                autoscaleMargin:0.02,
                 min: 0,
-                ticks: 2
+                ticks: 20
             },
             valueLabels: {
                 show: true
