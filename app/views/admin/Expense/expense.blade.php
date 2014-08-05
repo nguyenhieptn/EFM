@@ -17,7 +17,7 @@
                         <div class="col-md-9 col-sm-8">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Latest Expense list</h3>
+                                    <h3 class="box-title">Chi tieu trong thang {{ $month }}/{{ $year }} </h3>
                                     <div class="box-tools">
                                         <div class="input-group">
                                             <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
@@ -49,7 +49,7 @@
                                             <td>Total:</td>
                                             <td> </td>
                                             <td></td>
-                                            <td width="20px" align="right">{{ number_format($total,0,'','.')    }}</td>
+                                            <td width="20px" align="right" id="totalExpense">{{ number_format($total,0,'','.')    }}</td>
                                         </tr>
 
                                         </tbody></table>

@@ -16,8 +16,15 @@ class ExpenseController extends \BaseController {
 	 */
 	public function index()
 	{
-        //get user id and cat acc
+        //INIT variables value
+        //get current month
         $id = Auth::id();
+        $month = \Input::get('month',date("m"));
+        $year = \Input::get('year',date("Y"));
+
+        $startDate = date("Y-m-d H:i:s",strtotime("$year-$month-01") );
+        $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
+
         $accounts = \User::find($id)->accounts()->get();
         $categories = \User::find($id)->categories()->where('type','=','1')->get();
 
@@ -31,13 +38,27 @@ class ExpenseController extends \BaseController {
                                         'expenses.description',
                                         'expenses.amount',
                                         'categories.name')
+                            ->whereRaw("`expenses`.`created_at`> '$startDate' AND `expenses`.`created_at`<'$endDate'")
                             ->orderBy('expenses.created_at','desc')
                             ->get();
-
+        $incomes = \DB::table('incomes')
+                            ->join('categories', 'categories.id', '=', 'incomes.category_id')
+                            ->join('accounts', 'accounts.id', '=', 'incomes.account_id')
+                            ->select('incomes.id',
+                                        'incomes.created_at',
+                                        'incomes.description',
+                                        'incomes.amount',
+                                        'categories.name')
+                            ->whereRaw("`incomes`.`created_at`> '$startDate' AND `incomes`.`created_at`<'$endDate'")
+                            ->orderBy('incomes.created_at','desc')
+                            ->sum('incomes.amount');
         //render view
         return View::make('admin.Expense.expense')->with('accounts',$accounts)
                                                 ->with('categories',$categories)
-                                                ->with('expenses',$expenses);
+                                                ->with('expenses',$expenses)
+                                                ->with('incomes',$incomes)
+                                                ->with('month',$month)
+                                                ->with('year',$year);
 	}
 
 
