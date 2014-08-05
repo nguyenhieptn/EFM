@@ -44,7 +44,7 @@
                 autoscaleMargin: 0.08
             },
             xaxis: {
-                autoscaleMargin:0.02,
+                autoscaleMargin:0,
                 min: 0,
                 ticks: 5
             },
