@@ -17,7 +17,48 @@ class Expense extends \Eloquent
         );
     }
 
-    //related to morph ( account, user, category)
+    public static function getExpenseList($startDate,$endDate,$user_id)
+    {
+        $expenses = \DB::table('expenses')
+            ->join('categories', 'categories.id', '=', 'expenses.category_id')
+            ->join('accounts', 'accounts.id', '=', 'expenses.account_id')
+            ->select('expenses.id',
+                'expenses.created_at',
+                'expenses.description',
+                'expenses.amount',
+                'categories.name')
+            ->whereRaw("`expenses`.`created_at`> '$startDate'
+                                    AND `expenses`.`created_at`<'$endDate'
+                                    AND `expenses`.`user_id`='$user_id'")
+            ->orderBy('expenses.created_at','desc')
+            ->get();
+
+        return $expenses;
+    }
+
+    /*
+    * Get total expense amount in a range of a user id
+    * @user_id int
+    * @param $startDate datetime
+    * @param $endDate datetime
+    * @return $total int
+    */
+    public static function getTotalAmount($startDate, $endDate, $user_id){
+        $totalExpense = \DB::table('expenses')
+            ->select('expenses.id',
+                'expenses.created_at',
+                'expenses.amount')
+            ->whereRaw("`expenses`.`created_at`> '$startDate'
+                    AND `expenses`.`created_at`<'$endDate'
+                    AND `expenses`.`user_id`='$user_id'")
+            ->orderBy('expenses.created_at','desc')
+            ->sum('expenses.amount');
+
+        return $totalExpense;
+    }
+
+
+    //relationship builder ( account, user, category)
     public function accounts()
     {
         return $this->hasMany('account','id','category_id');
@@ -37,5 +78,7 @@ class Expense extends \Eloquent
     {
         return $this->belongTo('payee_id','id','payee_id');
     }
+
+
 
 }

@@ -14,12 +14,9 @@
          * BAR CHART
          * ---------
          */
-        var totalExpense = parseInt($('#totalExpense').text().replace(/\./g, ''))/1000;
-
-
         var bar_data = [
-            { data:[[ {{ round($incomes/1000)}}, "Income"]], color:"#2ca9f2" },
-            { data:[[totalExpense, "Expend"]], color:"#eb3d3d" }
+            { data:[[ {{ round($totalIncomes/1000)}}, "Income"]], color:"#2ca9f2" },
+            { data:[[ {{ round($totalExpenses/1000)}}, "Expend"]], color:"#eb3d3d" }
         ];
 
         $.plot("#bar-chart", bar_data, {
@@ -41,7 +38,7 @@
                 mode: "categories",
                 tickLength: 2,
                 axisMargin: 0,
-                autoscaleMargin: 0.08
+                autoscaleMargin: 0
             },
             xaxis: {
                 autoscaleMargin:0,

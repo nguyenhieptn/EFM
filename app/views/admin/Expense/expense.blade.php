@@ -7,7 +7,8 @@
             <div class="box box-solid">
                 <div class="box-bsody">
                     <div class="row"> <!-- charts system -->
-                        <div class="col-md-12">@include('admin.Expense.ExpenseChart')</div>
+                        <div class="col-md-9 col-sm-8">@include('admin.Expense.ExpenseChart')</div>
+                        <div class="col-md-3 col-sm-4">@include('admin.Expense.Balance')</div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
@@ -35,9 +36,7 @@
                                             <th width="40px">Category</th>
                                             <th>Amount</th>
                                         </tr>
-                                        <?php $total=0; ?>
                                         @foreach($expenses as $i)
-                                        <?php  $total = $total+$i->amount ?>
                                         <tr>
                                             <td>{{ date("d/m/Y",strtotime($i->created_at)) }}</td>
                                             <td>{{ $i->description }} </td>
@@ -49,7 +48,7 @@
                                             <td>Total:</td>
                                             <td> </td>
                                             <td></td>
-                                            <td width="20px" align="right" id="totalExpense">{{ number_format($total,0,'','.')    }}</td>
+                                            <td width="20px" align="right" id="totalExpense">{{ number_format($totalExpenses,0,'','.')    }}</td>
                                         </tr>
 
                                         </tbody></table>

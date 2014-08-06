@@ -17,7 +17,6 @@ class ExpenseController extends \BaseController {
 	public function index()
 	{
         //INIT variables value
-        //get current month
         $id = Auth::id();
         $month = \Input::get('month',date("m"));
         $year = \Input::get('year',date("Y"));
@@ -28,35 +27,17 @@ class ExpenseController extends \BaseController {
         $accounts = \User::find($id)->accounts()->get();
         $categories = \User::find($id)->categories()->where('type','=','1')->get();
 
-        //get current records
-        //$incomes = Income::with('categories','accounts')->get();
-        $expenses = \DB::table('expenses')
-                            ->join('categories', 'categories.id', '=', 'expenses.category_id')
-                            ->join('accounts', 'accounts.id', '=', 'expenses.account_id')
-                            ->select('expenses.id',
-                                        'expenses.created_at',
-                                        'expenses.description',
-                                        'expenses.amount',
-                                        'categories.name')
-                            ->whereRaw("`expenses`.`created_at`> '$startDate' AND `expenses`.`created_at`<'$endDate'")
-                            ->orderBy('expenses.created_at','desc')
-                            ->get();
-        $incomes = \DB::table('incomes')
-                            ->join('categories', 'categories.id', '=', 'incomes.category_id')
-                            ->join('accounts', 'accounts.id', '=', 'incomes.account_id')
-                            ->select('incomes.id',
-                                        'incomes.created_at',
-                                        'incomes.description',
-                                        'incomes.amount',
-                                        'categories.name')
-                            ->whereRaw("`incomes`.`created_at`> '$startDate' AND `incomes`.`created_at`<'$endDate'")
-                            ->orderBy('incomes.created_at','desc')
-                            ->sum('incomes.amount');
+        //Prepare data for view
+        $expenses = Expense::getExpenseList($startDate,$endDate,$id);
+        $totalExpenses = Expense::getTotalAmount($startDate,$endDate,$id);
+        $totalIncome = Income::getTotalAmount($startDate,$endDate,$id);
+
         //render view
         return View::make('admin.Expense.expense')->with('accounts',$accounts)
                                                 ->with('categories',$categories)
                                                 ->with('expenses',$expenses)
-                                                ->with('incomes',$incomes)
+                                                ->with('totalIncomes',$totalIncome)
+                                                ->with('totalExpenses',$totalExpenses)
                                                 ->with('month',$month)
                                                 ->with('year',$year);
 	}

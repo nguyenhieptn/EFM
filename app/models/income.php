@@ -16,6 +16,29 @@ class Income extends \Eloquent
         );
     }
 
+
+     /*
+     * Get total income amount in a range of a user_id
+     * @user_id int
+     * @param $startDate datetime
+     * @param $endDate datetime
+     * @return $total int
+     */
+    public static function getTotalAmount($startDate, $endDate, $user_id){
+        $incomes = \DB::table('incomes')
+            ->join('users', 'users.id', '=', 'incomes.user_id')
+            ->select('incomes.id',
+                'incomes.created_at',
+                'incomes.amount')
+            ->whereRaw("`incomes`.`created_at`> '$startDate'
+                    AND `incomes`.`created_at`<'$endDate'
+                    AND `incomes`.`user_id`='$user_id'")
+            ->orderBy('incomes.created_at','desc')
+            ->sum('incomes.amount');
+        return $incomes;
+    }
+
+
     //related to morph ( account, user, category)
     public function accounts()
     {
