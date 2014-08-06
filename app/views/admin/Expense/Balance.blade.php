@@ -1,6 +1,6 @@
 <div class="box box-primary">
     <div class="box-body">
-        <div id="">
+        <div id="jmbalance">
             <ul>
                 <li>{{ number_format($totalIncomes,0,'','.') }}</li>
                 <li>{{ number_format($totalExpenses,0,'','.') }}</li>
