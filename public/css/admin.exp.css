@@ -9,6 +9,7 @@
 	color: #2ca9f2;
 }
 #jmbalance ul li#money_out{color:#eb3d3d ;}
+#jmbalance ul li.moneytotal{color:#75c900;}
 #jmbalance ul li span{
 	font-weight: normal;
 	font-size: 13px;
