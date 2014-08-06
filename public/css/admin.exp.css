@@ -11,9 +11,10 @@
 	font-weight: normal;
 	font-size: 13px;
 	color: #606060;
-	width: 50%;
+	
 	display: inline-block;
 }
+#jmbalance ul li span.text{width: 40%}
 #jmbalance ul li span.number{
 	text-align: center;font-size: 18px;
-	font-weight: bold;}
+	font-weight: bold;width: 60%;}
