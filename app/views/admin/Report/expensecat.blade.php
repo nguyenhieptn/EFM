@@ -15,9 +15,8 @@
          * ---------
          */
         var bar_data = [
-            { data:[[ {{ round($totalExpenses/1000)}}, "Expend"]], color:"#eb3d3d" },
-            { data:[[ {{ round($totalIncomes/1000)}}, "Income"]], color:"#2ca9f2" }
-
+            { data:[[ 1000, "Expend"]], color:"#eb3d3d" },
+            { data:[[ 2000, "Income"]], color:"#2ca9f2" }
         ];
 
         $.plot("#bar-chart", bar_data, {
@@ -32,6 +31,7 @@
                     barWidth: 0.5,
                     align: "center",
                     horizontal: true,
+                    showNumbers: true
                 }
             },
             yaxis: {

@@ -78,7 +78,5 @@
 @parent
 {{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
-{{ HTML::script('js/plugins/flot/jquery.flot.pie.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
-{{ HTML::script('js/plugins/flot/jquery.flot.barnumbers.js')}}
 @stop

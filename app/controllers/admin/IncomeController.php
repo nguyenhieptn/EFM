@@ -25,7 +25,7 @@ class IncomeController extends \BaseController {
         $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
 
         $accounts = \User::find($id)->accounts()->get();
-        $categories = \User::find($id)->categories()->where('type','=','1')->get();
+        $categories = \User::find($id)->categories()->where('type','=','0')->get();
 
         //Prepare data for view
         $incomes = Income::getIncomeList($startDate,$endDate,$id);
