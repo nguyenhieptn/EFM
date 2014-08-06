@@ -6,6 +6,10 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
+                    <div class="row"> <!-- charts system -->
+                        <div class="col-md-9 col-sm-8">@include('admin.Income.ExpenseChart')</div>
+                        <div class="col-md-3 col-sm-4">@include('admin.Income.Balance')</div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
                               @include('admin.Income.form')
