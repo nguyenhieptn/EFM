@@ -16,6 +16,32 @@ class Income extends \Eloquent
         );
     }
 
+    /*
+     *Get all incomes in a date range of user_id
+     * @param $startdate datetime
+     * @param $endDate date
+     * @parame $user int
+     * @return incomes eloquent data
+     */
+    public static function getIncomeList($startDate,$endDate,$user_id)
+    {
+        $incomes = \DB::table('incomes')
+            ->join('categories', 'categories.id', '=', 'incomes.category_id')
+            ->join('accounts', 'accounts.id', '=', 'incomes.account_id')
+            ->select('incomes.id',
+                'incomes.created_at',
+                'incomes.description',
+                'incomes.amount',
+                'categories.name')
+            ->whereRaw("`incomes`.`created_at`> '$startDate'
+                                    AND `incomes`.`created_at`<'$endDate'
+                                    AND `incomes`.`user_id`='$user_id'")
+            ->orderBy('incomes.created_at','desc')
+            ->get();
+
+        return $incomes;
+    }
+
 
      /*
      * Get total income amount in a range of a user_id

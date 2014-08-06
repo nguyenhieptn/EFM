@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use models\admin\Income;
+use models\admin\Expense;
 use Symfony\Component\Security\Core\Tests\Validator\Constraints\UserPasswordValidatorTest;
 
 class IncomeController extends \BaseController {
@@ -15,28 +16,30 @@ class IncomeController extends \BaseController {
 	 */
 	public function index()
 	{
-        //get user id and cat acc
+        //INIT variables value
         $id = Auth::id();
-        $accounts = \User::find($id)->accounts()->get();
-        $categories = \User::find($id)->categories()->where('type','=','0')->get();
+        $month = \Input::get('month',date("m"));
+        $year = \Input::get('year',date("Y"));
 
-        //get current records
-        //$incomes = Income::with('categories','accounts')->get();
-        $incomes = \DB::table('incomes')
-                            ->join('categories', 'categories.id', '=', 'incomes.category_id')
-                            ->join('accounts', 'accounts.id', '=', 'incomes.account_id')
-                            ->select('incomes.id',
-                                        'incomes.created_at',
-                                        'incomes.description',
-                                        'incomes.amount',
-                                        'categories.name')
-                            ->orderBy('incomes.created_at','desc')
-                            ->get();
+        $startDate = date("Y-m-d H:i:s",strtotime("$year-$month-01") );
+        $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
+
+        $accounts = \User::find($id)->accounts()->get();
+        $categories = \User::find($id)->categories()->where('type','=','1')->get();
+
+        //Prepare data for view
+        $incomes = Income::getIncomeList($startDate,$endDate,$id);
+        $totalExpenses = Expense::getTotalAmount($startDate,$endDate,$id);
+        $totalIncome = Income::getTotalAmount($startDate,$endDate,$id);
 
         //render view
         return View::make('admin.Income.income')->with('accounts',$accounts)
-                                                ->with('categories',$categories)
-                                                ->with('incomes',$incomes);
+            ->with('categories',$categories)
+            ->with('incomes',$incomes)
+            ->with('totalIncomes',$totalIncome)
+            ->with('totalExpenses',$totalExpenses)
+            ->with('month',$month)
+            ->with('year',$year);
 	}
 
 
