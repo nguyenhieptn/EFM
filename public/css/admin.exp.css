@@ -3,5 +3,13 @@
 /*6/8/14----DieuLinh----admin/expense*/
 #jmbalance ul{margin: 0;list-style: none;padding: 0}
 #jmbalance ul li{
-
+	line-height: 1;
+	font-size: 16px;
+	font-weight: bold;
+	color: #3c8dbc;
 }
+#jmbalance ul li.moneytotal{color: #78c404;}
+#jmbalance ul li span{
+	font-weight: normal;
+	font-size: 13px;
+	color: #606060}
