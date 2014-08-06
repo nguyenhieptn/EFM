@@ -4,9 +4,6 @@
 #jmbalance ul{margin: 0;list-style: none;padding: 0}
 #jmbalance ul li{
 	line-height: 1.06;
-	font-size: 18px;
-	font-weight: bold;
-	color: #2ca9f2;
 }
 #jmbalance ul li#money_out span{color:#eb3d3d ;}
 #jmbalance ul li.moneytotal span{color:#75c900;}
@@ -17,4 +14,6 @@
 	width: 50%;
 	display: inline-block;
 }
-#jmbalance ul li span.number{text-align: center;}
+#jmbalance ul li span.number{
+	text-align: center;font-size: 18px;
+	font-weight: bold;}
