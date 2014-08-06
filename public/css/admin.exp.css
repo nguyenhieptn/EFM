@@ -14,7 +14,7 @@
 	
 	display: inline-block;
 }
-#jmbalance ul li span.text{width: 20%}
+#jmbalance ul li span.text{width: 25%}
 #jmbalance ul li span.number{
 	text-align: center;font-size: 18px;
-	font-weight: bold;width: 80%;}
+	font-weight: bold;width: 73%;}
