@@ -12,80 +12,17 @@
             @include('admin.Report.expensecattable')
         </div>
     </div>
+    <!-- start row budget -->
     <div class="row">
-        <div class="col-md-3">
-            <div class="small-box bg-blue">
-                <div class="inner">
-                    <h3>
-                        {{ $totalIncome }}<sup style="font-size: 20px">vnd</sup>
-                    </h3>
-                    <p>
-                        Income
-                    </p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a class="small-box-footer" href="#">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>
-                        {{ $totalIncome }}<sup style="font-size: 20px">vnd</sup>
-                    </h3>
-                    <p>
-                        Expense
-                    </p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a class="small-box-footer" href="#">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3>
-                        {{ $totalIncome-$totalExpense }}<sup style="font-size: 20px">vnd</sup>
-                    </h3>
-                    <p>
-                        Saving
-                    </p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a class="small-box-footer" href="#">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>
-                        {{ $totalBudget }}<sup style="font-size: 20px">vnd</sup>
-                    </h3>
-                    <p>
-                        Budget
-                    </p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a class="small-box-footer" href="#">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
+            @include('admin.Report.balance')
+    </div>
+    <!-- /budget -->
+    <div class="row">
+        <div class="col-md-12">
+            @include('admin.Report.tables')
         </div>
     </div>
+    <!-- end Table -->
 </section>
 @stop
 @section('foot')
