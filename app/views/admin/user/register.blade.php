@@ -42,9 +42,6 @@
                     <div class="form-group">
                         {{ Form::email('email',Input::old('email'),array('class'=>'form-control','placeholder'=>'Email')) }}
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="remember_me"/> Remember me
-                    </div>
                 </div>
                 <div class="footer">
                     {{ Form::submit('Register', array('class'=>'btn bg-olive btn-block')) }}
