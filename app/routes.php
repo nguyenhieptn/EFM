@@ -36,6 +36,7 @@ Route::group(array("prefix"=>"admin",'before' => 'auth.admin'), function(){
     Route::resource("expense",'controllers\admin\ExpenseController');
     Route::resource("account",'controllers\admin\AccountController');
     Route::resource("report",'controllers\admin\ReportController');
+    Route::resource("reportyear",'controllers\admin\ReportYearController');
 });
 
 //if no admin tried to access

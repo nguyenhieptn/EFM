@@ -22,11 +22,18 @@ class ReportController extends \BaseController {
         $accounts = \User::find($id)->accounts()->get();
         $categories = \User::find($id)->categories()->where('type','=','1')->get();
 
+        $expenseCategories = \Category::getExpenseCat($startDate,$endDate,$id);
+        $incomeCategories = \Category::getIncomeCat($startDate,$endDate,$id);
+
         //Prepare data for view
         $expenses = Expense::getExpenseList($startDate,$endDate,$id);
         $totalExpenses = Expense::getTotalAmount($startDate,$endDate,$id);
         $totalIncome = Income::getTotalAmount($startDate,$endDate,$id);
         $totalBudget = 7000;
+
+        //get expends group by categories
+
+
         //render view
         return \View::make('admin.Report.month')->with('accounts',$accounts)
             ->with('categories',$categories)
@@ -34,6 +41,8 @@ class ReportController extends \BaseController {
             ->with('totalIncome',$totalIncome)
             ->with('totalExpense',$totalExpenses)
             ->with('totalBudget',$totalBudget)
+            ->with('expenseCat',$expenseCategories)
+            ->with('incomeCat',$incomeCategories)
             ->with('month',$month)
             ->with('year',$year);
 

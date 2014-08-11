@@ -1,6 +1,6 @@
-<?php
+<?php namespace controllers\admin;
 
-class userscheckin extends \BaseController {
+class ReportYearController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,7 @@ class userscheckin extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		return \View::make('admin.ReportYear.year');
 	}
 
 
