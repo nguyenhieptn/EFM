@@ -21,12 +21,15 @@
  <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header">Sign In</div>
+            <div class="header">Register</div>
             {{-- Show error --}}
             {{ $errors->first('email') }}
             {{ $errors->first('password') }}
-            {{ Form::open(array('url'=>'admin/user/actionlogin')) }}
+            {{ Form::open(array('url'=>'admin/user/store')) }}
                 <div class="body bg-gray">
+                    <div class="form-group">
+                        {{ Form::text('name',Input::old('name'),array('class'=>'form-control','placeholder'=>'Name')) }}
+                    </div>
                     <div class="form-group">
                         {{ Form::text('username',Input::old('username'),array('class'=>'form-control','placeholder'=>'Username')) }}
                     </div>
@@ -34,16 +37,19 @@
                         {{ Form::password('password',array('class'=>'form-control','placeholder'=>'Password')) }}
                     </div>
                     <div class="form-group">
+                        {{ Form::password('password2',array('class'=>'form-control','placeholder'=>'Confirm Password')) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::email('email',Input::old('email'),array('class'=>'form-control','placeholder'=>'Email')) }}
+                    </div>
+                    <div class="form-group">
                         <input type="checkbox" name="remember_me"/> Remember me
                     </div>
                 </div>
                 <div class="footer">
-                    {{ Form::submit('Sign me in', array('class'=>'btn bg-olive btn-block')) }}
-
-                    <p><a href="{{URL::to('admin/dashboard')}}">I forgot my password</a></p>
-
-                    <a href="{{URL::to('admin/user/register')}}" class="text-center">Register a new account</a>
+                    {{ Form::submit('Register', array('class'=>'btn bg-olive btn-block')) }}
                 </div>
+            {{ Form::token() }}
             {{ Form::close() }}
 
             <div class="margin text-center">

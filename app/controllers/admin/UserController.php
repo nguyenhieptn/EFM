@@ -73,6 +73,38 @@ class UserController extends \BaseController {
         }
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return \View::make("admin.user.register");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $input = \Input::all();
+        $validation = \Validator::make($input, \User::rules());
+
+        if ($validation->passes())
+        {
+            \User::create($input);
+
+            return \Redirect::to('admin/user/login');
+        }
+
+        return \Redirect::to('admin/user/register')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
 
 
 

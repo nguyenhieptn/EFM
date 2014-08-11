@@ -17,6 +17,8 @@ Route::get('admin/','controllers\admin\UserController@login');
 
 //admin user login system
 Route::get("admin/user/login",'controllers\admin\UserController@login');
+Route::get("admin/user/register",'controllers\admin\UserController@create');
+Route::post("admin/user/store",'controllers\admin\UserController@store');
 Route::post("admin/user/actionlogin",'controllers\admin\UserController@actionlogin');
 Route::get("admin/user/logout",'controllers\admin\UserController@logout');
 
