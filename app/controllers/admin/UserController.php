@@ -48,7 +48,7 @@ class UserController extends \BaseController {
 
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
-            return Redirect::to('admin/user/login')
+            return Redirect::to('user/login')
                 ->withErrors($validator) // send back all errors to the login form
                 ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {
@@ -66,7 +66,7 @@ class UserController extends \BaseController {
             } else {
 
                 // validation not successful, send back to form
-                return Redirect::to('admin/user/login')->withInput(Input::except('password'));;
+                return Redirect::to('user/login')->withInput(Input::except('password'));;
 
             }
 
@@ -96,11 +96,19 @@ class UserController extends \BaseController {
         if ($validation->passes())
         {
             \User::create($input);
+            $userdata = array(
+                'username' 	=> Input::get('username'),
+                'password' 	=> Input::get('password')
+            );
 
-            return \Redirect::to('admin/user/login');
+            // attempt to do the login
+            if (Auth::attempt($userdata)) {
+                // validation successful!
+                return Redirect::to('admin/dashboard');
+            }
         }
 
-        return \Redirect::to('admin/user/register')
+        return \Redirect::to('user/register')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');

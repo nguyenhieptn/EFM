@@ -25,7 +25,7 @@
             {{-- Show error --}}
             {{ $errors->first('email') }}
             {{ $errors->first('password') }}
-            {{ Form::open(array('url'=>'admin/user/store')) }}
+            {{ Form::open(array('url'=>'user/store')) }}
                 <div class="body bg-gray">
                     <div class="form-group">
                         {{ Form::text('name',Input::old('name'),array('class'=>'form-control','placeholder'=>'Name')) }}

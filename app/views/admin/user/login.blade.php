@@ -25,7 +25,7 @@
             {{-- Show error --}}
             {{ $errors->first('email') }}
             {{ $errors->first('password') }}
-            {{ Form::open(array('url'=>'admin/user/actionlogin')) }}
+            {{ Form::open(array('url'=>'user/actionlogin')) }}
                 <div class="body bg-gray">
                     <div class="form-group">
                         {{ Form::text('username',Input::old('username'),array('class'=>'form-control','placeholder'=>'Username')) }}
@@ -40,9 +40,9 @@
                 <div class="footer">
                     {{ Form::submit('Sign me in', array('class'=>'btn bg-olive btn-block')) }}
 
-                    <p><a href="{{URL::to('admin/dashboard')}}">I forgot my password</a></p>
+                    <p><a href="{{URL::to('dashboard')}}">I forgot my password</a></p>
 
-                    <a href="{{URL::to('admin/user/register')}}" class="text-center">Register a new account</a>
+                    <a href="{{URL::to('user/register')}}" class="text-center">Register a new account</a>
                 </div>
             {{ Form::close() }}
 
