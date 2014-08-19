@@ -71,7 +71,7 @@ class ExpenseController extends \BaseController {
             return \Redirect::to('expense');
         }
 
-        return \Redirect::route('admin.expense.index')
+        return \Redirect::route('expense.index')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');

@@ -12,7 +12,7 @@ class Expense extends \Eloquent
             'user_id'    => 'Integer|required',
             'category_id'    => 'Integer|required',
             'account_id'    => 'Integer|required',
-            'amount'    => 'Integer|required',
+            'amount'    => 'required',
             'payee_id'    => 'Integer',
         );
     }
@@ -57,28 +57,10 @@ class Expense extends \Eloquent
         return $totalExpense;
     }
 
-
-    //relationship builder ( account, user, category)
-    public function accounts()
+    public function setAmountAttribute($value)
     {
-        return $this->hasMany('account','id','category_id');
+
+        $this->attributes['amount'] = (int)str_replace('.','',$value);
+
     }
-
-    public function categories()
-    {
-        return $this->hasMany('category','id','category_id');
-    }
-
-    public function users()
-    {
-        return $this->hasMany('user','id','user_id');
-    }
-
-    public function payee()
-    {
-        return $this->belongTo('payee_id','id','payee_id');
-    }
-
-
-
 }

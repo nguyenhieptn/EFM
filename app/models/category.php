@@ -13,18 +13,6 @@ class Category extends \Eloquent
             'type'    => 'Integer|required', // name of category
         );
     }
-    /*
-     * relationship to user table
-     */
-    public function user()
-    {
-        $this->belongsTo('user','id');
-    }
-
-    public function income()
-    {
-        return $this->belongsTo('income','id');
-    }
 
     public static function getExpenseCat($startDate,$endDate,$user_id){
         $expenseCat = \DB::table('expenses')

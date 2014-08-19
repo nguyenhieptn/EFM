@@ -12,7 +12,7 @@ class Income extends \Eloquent
             'user_id'    => 'Integer|required', // name of category
             'category_id'    => 'Integer|required', // name of category
             'account_id'    => 'Integer|required', // name of category
-            'amount'    => 'Integer|required', // name of category
+            'amount'    => 'required', // name of category
         );
     }
 
@@ -64,21 +64,10 @@ class Income extends \Eloquent
         return $incomes;
     }
 
-
-    //related to morph ( account, user, category)
-    public function accounts()
+    public function setAmountAttribute($value)
     {
-        return $this->hasMany('account','id','category_id');
-    }
 
-    public function categories()
-    {
-        return $this->hasMany('category','id','category_id');
-    }
+        $this->attributes['amount'] = (int)str_replace('.','',$value);
 
-    public function users()
-    {
-        return $this->hasMany('user','id','user_id');
     }
-
 }

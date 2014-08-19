@@ -47,10 +47,8 @@
 <!-- start maskinguser money decimal -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#amount").inputmask("decimal",{
-            radixPoint:",",
+        $("#amount").inputmask("integer",{
             groupSeparator: ".",
-            digits: 0,
             autoGroup: true,
             prefix: '$'
         });

@@ -14,12 +14,4 @@ class Account extends \Eloquent
             'user_id'    => 'required|Integer', // name of category
         );
     }
-
-    /*
-     * relationship to user model
-     */
-    public function user()
-    {
-        return $this->belongsTo('user','id');
-    }
 }

@@ -71,7 +71,7 @@ class IncomeController extends \BaseController {
             return \Redirect::to('income');
         }
 
-        return \Redirect::route('admin.income.index')
+        return \Redirect::route('income.index')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');

@@ -7,7 +7,7 @@
         <!-- timeline time label -->
         <li class="time-label">
         <span class="bg-red">
-            Begin
+            Let's Begin
         </span>
         </li>
         <!-- /.timeline-label -->
