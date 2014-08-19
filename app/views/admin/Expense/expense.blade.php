@@ -31,24 +31,24 @@
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tbody><tr>
-                                            <th width="80px">Date</th>
+                                            <th width="40px">Date</th>
                                             <th>Description</th>
-                                            <th width="40px">Category</th>
+                                            <th width="15%" class="hidden-xs hidden-sm">Category</th>
                                             <th>Amount</th>
                                         </tr>
                                         @foreach($expenses as $i)
                                         <tr>
-                                            <td>{{ date("d/m/Y",strtotime($i->created_at)) }}</td>
+                                            <td>{{ date("d/m",strtotime($i->created_at)) }}</td>
                                             <td>{{ $i->description }} </td>
-                                            <td>{{ $i->name }}</td>
+                                            <td class="hidden-xs hidden-sm">{{ $i->name }}</td>
                                             <td width="20px" align="right">{{ number_format($i->amount,0,'','.') }}</td>
                                         </tr>
                                         @endforeach
                                         <tr>
                                             <td>Total:</td>
                                             <td> </td>
-                                            <td></td>
-                                            <td width="20px" align="right" id="totalExpense">{{ number_format($totalExpenses,0,'','.')    }}</td>
+                                            <td class="hidden-xs hidden-sm"></td>
+                                            <td align="right">{{ number_format($totalExpenses,0,'','.')    }}</td>
                                         </tr>
 
                                         </tbody></table>

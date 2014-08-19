@@ -39,7 +39,7 @@ return array(
 			'password' => 'secret',
 			'charset'  => 'utf8',
 			'prefix'   => '',
-			'schema'   => 'public',
+			'schema'   => 'public_html',
 		),
 
 	),

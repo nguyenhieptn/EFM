@@ -8,7 +8,7 @@
         @endif
     </div><!-- /.box-header -->
     <div class="box-body row-fluid">
-    {{ Form::open(array('url'=>'admin/category')) }}
+    {{ Form::open(array('url'=>'category')) }}
         <div class="col-md-6">
             <div class="form-group has-success">
                 <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Category Name</label>

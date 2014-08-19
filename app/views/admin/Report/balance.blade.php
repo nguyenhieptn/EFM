@@ -53,7 +53,7 @@
     </div>
 </div>
 <div class="col-md-3">
-    {{ Form::open(array('url'=>'admin/report','method'=>'get','id'=>'monthyear')) }}
+    {{ Form::open(array('url'=>'report','method'=>'get','id'=>'monthyear')) }}
     <div class="small-box bg-light-blue">
 
         <div class="inner">

@@ -8,7 +8,7 @@
         @endif
     </div>
     <div class="box-body">
-        {{ Form::open(array('url'=>'admin/income')) }}
+        {{ Form::open(array('url'=>'income')) }}
         <div class="input-group">
             <input name="amount" type="text" class="form-control currenc" placeholder="Amount" value="{{ Input::old('amount') }}">
             <span class="input-group-addon">VND</span>

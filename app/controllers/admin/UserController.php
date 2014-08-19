@@ -62,7 +62,7 @@ class UserController extends \BaseController {
             // attempt to do the login
             if (Auth::attempt($userdata)) {
                 // validation successful!
-                return Redirect::to('admin/dashboard');
+                return Redirect::to('dashboard');
             } else {
 
                 // validation not successful, send back to form
@@ -104,7 +104,7 @@ class UserController extends \BaseController {
             // attempt to do the login
             if (Auth::attempt($userdata)) {
                 // validation successful!
-                return Redirect::to('admin/dashboard');
+                return Redirect::to('dashboard');
             }
         }
 

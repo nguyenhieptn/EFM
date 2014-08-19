@@ -68,7 +68,7 @@ class IncomeController extends \BaseController {
         {
             Income::create($input);
 
-            return \Redirect::to('admin/income');
+            return \Redirect::to('income');
         }
 
         return \Redirect::route('admin.income.index')

@@ -43,7 +43,7 @@ return array(
 
 		'sqs' => array(
 			'driver' => 'sqs',
-			'key'    => 'your-public-key',
+			'key'    => 'your-public_html-key',
 			'secret' => 'your-secret-key',
 			'queue'  => 'your-queue-url',
 			'region' => 'us-east-1',
