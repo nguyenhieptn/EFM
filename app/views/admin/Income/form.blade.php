@@ -10,7 +10,7 @@
     <div class="box-body">
         {{ Form::open(array('url'=>'admin/income')) }}
         <div class="input-group">
-            <input name="amount" type="text" class="form-control currenc" placeholder="Amount" value="{{ Input::old('amount') }}">
+            <input name="amount" id="amount" type="text" class="form-control currenc" placeholder="Amount" value="{{ Input::old('amount') }}">
             <span class="input-group-addon">VND</span>
         </div>
         <br />
@@ -42,3 +42,19 @@
         {{ Form::close() }}
     </div><!-- /.box-body -->
 </div>
+@section('foot')
+@parent
+<!-- start maskinguser money decimal -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#amount").inputmask("decimal",{
+            radixPoint:",",
+            groupSeparator: ".",
+            digits: 0,
+            autoGroup: true,
+            prefix: '$'
+        });
+    });
+</script>
+<!-- end mask -->
+@stop

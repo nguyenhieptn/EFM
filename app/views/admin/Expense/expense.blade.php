@@ -73,6 +73,8 @@
 @stop
 @section('foot')
 @parent
+{{ HTML::script('js/plugins/input-mask/jquery.inputmask.js') }}
+{{ HTML::script('js/plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}
 {{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}

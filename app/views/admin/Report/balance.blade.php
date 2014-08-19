@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-lg-3 col-xs-6">
     <div class="small-box bg-blue">
         <div class="inner">
             <h3>
@@ -16,7 +16,7 @@
         </a>
     </div>
 </div>
-<div class="col-md-3">
+<div class="col-lg-3 col-xs-6">
     <div class="small-box bg-red">
         <div class="inner">
             <h3>
@@ -34,7 +34,7 @@
         </a>
     </div>
 </div>
-<div class="col-md-3">
+<div class="col-lg-3 col-xs-6">
     <div class="small-box bg-green">
         <div class="inner">
             <h3>
@@ -52,7 +52,7 @@
         </a>
     </div>
 </div>
-<div class="col-md-3">
+<div class="col-lg-3 col-xs-6">
     {{ Form::open(array('url'=>'admin/report','method'=>'get','id'=>'monthyear')) }}
     <div class="small-box bg-light-blue">
 
