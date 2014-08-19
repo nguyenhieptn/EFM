@@ -619,7 +619,7 @@ Licensed under the MIT license.
         },
         plot = this;
 
-        // public functions
+        // public_html functions
         plot.setData = setData;
         plot.setupGrid = setupGrid;
         plot.draw = draw;
@@ -682,7 +682,7 @@ Licensed under the MIT license.
             overlay.resize(width, height);
         };
 
-        // public attributes
+        // public_html attributes
         plot.hooks = hooks;
 
         // initialize

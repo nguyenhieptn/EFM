@@ -24,17 +24,17 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="active">
-                <a href="{{ URL::to('admin/dashboard')}}">
+                <a href="{{ URL::to('dashboard')}}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="{{ URL::to('admin/expense')}}">
+                <a href="{{ URL::to('expense')}}">
                     <i class="fa fa-sign-out"></i> <span>Expense</span>
                 </a>
             </li>
             <li>
-                <a href="{{ URL::to('admin/income')}}">
+                <a href="{{ URL::to('income')}}">
                     <i class="fa fa-sign-in"></i> <span>Income</span>
                 </a>
             </li>
@@ -46,8 +46,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::to('admin/report') }}"><i class="fa fa-angle-double-right"></i> Month</a></li>
-                    <li><a href="{{ URL::to('admin/reportyear') }}"><i class="fa fa-angle-double-right"></i> Year</a></li>
+                    <li><a href="{{ URL::to('report') }}"><i class="fa fa-angle-double-right"></i> Month</a></li>
+                    <li><a href="{{ URL::to('reportyear') }}"><i class="fa fa-angle-double-right"></i> Year</a></li>
                     <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Week</a></li>
                 </ul>
             </li>
@@ -59,13 +59,13 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::to('admin/category/1') }}"><i class="fa fa-angle-double-right"></i> Expense</a></li>
-                    <li><a href="{{ URL::to('admin/category/0') }}"><i class="fa fa-angle-double-right"></i> Income</a></li>
+                    <li><a href="{{ URL::to('category/1') }}"><i class="fa fa-angle-double-right"></i> Expense</a></li>
+                    <li><a href="{{ URL::to('category/0') }}"><i class="fa fa-angle-double-right"></i> Income</a></li>
 
                 </ul>
             </li>
             <li>
-                <a href="{{ URL::to('admin/account') }}">
+                <a href="{{ URL::to('account') }}">
                     <i class="fa fa-sign-out"></i> <span>Accounts</span>
                 </a>
             </li>

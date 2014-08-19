@@ -250,7 +250,7 @@ function Calendar(element, options, eventSources) {
 			initialRender();
 		}
 		else if (elementVisible()) {
-			// mainly for the public API
+			// mainly for the public_html API
 			calcSize();
 			_renderView(inc);
 		}
@@ -5084,7 +5084,7 @@ function DayEventRenderer() {
 	
 	// exports
 	t.renderDayEvents = renderDayEvents;
-	t.draggableDayEvent = draggableDayEvent; // made public so that subclasses can override
+	t.draggableDayEvent = draggableDayEvent; // made public_html so that subclasses can override
 	t.resizableDayEvent = resizableDayEvent; // "
 	
 	

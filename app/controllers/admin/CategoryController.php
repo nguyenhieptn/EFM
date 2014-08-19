@@ -49,7 +49,7 @@ class CategoryController extends \BaseController {
         {
             \Category::create($input);
 
-            return \Redirect::to('admin/category/'.$input['type']);
+            return \Redirect::to('category/'.$input['type']);
         }
 
         return \Redirect::route('admin.category.index')
@@ -106,7 +106,7 @@ class CategoryController extends \BaseController {
 
         Category::find($id)->delete();
 
-        return \Redirect::to('admin/category/'.Session::get('cattype'));
+        return \Redirect::to('category/'.Session::get('cattype'));
 	}
 
 

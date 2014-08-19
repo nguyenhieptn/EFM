@@ -68,7 +68,7 @@ class ExpenseController extends \BaseController {
         {
             Expense::create($input);
 
-            return \Redirect::to('admin/expense');
+            return \Redirect::to('expense');
         }
 
         return \Redirect::route('admin.expense.index')

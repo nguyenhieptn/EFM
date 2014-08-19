@@ -38,7 +38,7 @@
                     <td>
                         <div class="tools">
                         {{ Form::open(array('method' => 'DELETE', 'route' =>
-                         array('admin.account.destroy', $c->id))) }}
+                         array('account.destroy', $c->id))) }}
                         {{ Form::submit('delete', array('class' => 'fa fa-trash-o')) }}
 
                         {{ Form::close() }}

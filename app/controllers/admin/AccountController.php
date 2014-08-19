@@ -42,7 +42,7 @@ class AccountController extends \BaseController {
         {
             \Account::create($input);
 
-            return \Redirect::to('admin/account');
+            return \Redirect::to('account');
         }
 
         return \Redirect::route('admin.account.index')
@@ -99,7 +99,7 @@ class AccountController extends \BaseController {
 	{
         \Account::find($id)->delete();
 
-        return \Redirect::to('admin/account');
+        return \Redirect::to('account');
 	}
 
 
