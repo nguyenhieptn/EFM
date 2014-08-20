@@ -71,6 +71,9 @@
 
 </section>
 <section>
+    <div id="dialog-form" title="Create new user" class="box box-body exeditor">
+
+    </div><!-- /.box-body -->
 </section>
 @stop
 @section('foot')
@@ -80,9 +83,22 @@
 {{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
+{{ HTML::script('js/jquery.bpopup.min.js')}}
 <!-- POpup editor -->
 <script type="text/javascript">
+    $(function() {
+        var base_url="http://localhost/EFM/public_html";
+        var exdata = 1;
+        $('.edit').click( function(){
+            $('#dialog-form').bPopup({
+                content:'ajax', //'ajax', 'iframe' or 'image'
+                contentContainer:'#dialog-form',
+                loadData: exdata,
+                loadUrl:base_url+'/expense'
+            });
+        });
 
+    });
 </script>
 <!-- end Popup -->
 @stop

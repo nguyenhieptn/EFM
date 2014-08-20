@@ -24,3 +24,10 @@
     font-size: 18px;
 	font-weight: bold;width: 65%;
 }
+
+/* Editor box */
+.exeditor {
+    max-width: 640px;
+    padding: 20px;
+    display:none;
+}

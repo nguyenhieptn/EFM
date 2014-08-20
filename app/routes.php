@@ -41,4 +41,6 @@ Route::group(array('before' => 'auth.admin'), function(){
     Route::resource("reportyear",'controllers\admin\ReportYearController');
 });
 
-//if no admin tried to access
+
+//api
+
