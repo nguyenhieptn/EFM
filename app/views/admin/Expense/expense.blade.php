@@ -39,7 +39,7 @@
                                         @foreach($expenses as $i)
                                         <tr>
                                             <td>{{ date("d/m",strtotime($i->created_at)) }}</td>
-                                            <td>{{ $i->description }} </td>
+                                            <td class="edit">{{ $i->description }} </td>
                                             <td class="hidden-xs hidden-sm">{{ $i->name }}</td>
                                             <td width="20px" align="right">{{ number_format($i->amount,0,'','.') }}</td>
                                         </tr>
@@ -70,6 +70,8 @@
     <!-- MAILBOX END -->
 
 </section>
+<section>
+</section>
 @stop
 @section('foot')
 @parent
@@ -78,4 +80,9 @@
 {{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
+<!-- POpup editor -->
+<script type="text/javascript">
+
+</script>
+<!-- end Popup -->
 @stop
