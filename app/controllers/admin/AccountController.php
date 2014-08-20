@@ -1,6 +1,5 @@
 <?php
 namespace controllers\admin;
-
 class AccountController extends \BaseController {
 
 	/**
@@ -10,11 +9,11 @@ class AccountController extends \BaseController {
 	 */
 	public function index()
 	{
-
         $accounts = \Account::whereRaw('user_id=?',array(\Auth::id()))->get();
 
         return \View::make('admin.Account.account',compact('accounts'));
 	}
+
 
 
 	/**
