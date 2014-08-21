@@ -25,7 +25,7 @@ Route::get("user/logout",'controllers\admin\UserController@logout');
 
 Route::filter('auth.admin', function() {
     // if not logged in redirect to the login page
-    if (Auth::guest()) return Redirect::guest('admin/user/login');
+    if (Auth::guest()) return Redirect::guest('user/login');
 });
 
 
@@ -43,4 +43,9 @@ Route::group(array('before' => 'auth.admin'), function(){
 
 
 //api
+Route::group(array('prefix'=>'api','before' => 'auth.admin'), function(){
+    Route::resource("expense",'controllers\api\v1\ExpenseApiController');
+
+});
+
 

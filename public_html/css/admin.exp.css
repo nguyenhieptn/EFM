@@ -26,8 +26,13 @@
 }
 
 /* Editor box */
-.exeditor {
+.ex-editor-box {
     max-width: 640px;
+    min-width: 320px;
     padding: 20px;
+}
+
+#dialog-form{
     display:none;
+    background-color: #ffffff;
 }

@@ -1,4 +1,4 @@
-<div class="box box-info ">
+<div class="box ex-editor-box">
     <div class="box-header">
         <h3 class="box-title">New Expense</h3>
         @if ($errors->any())
@@ -42,17 +42,3 @@
         {{ Form::close() }}
     </div><!-- /.box-body -->
 </div>
-@section('foot')
-@parent
-<!-- start maskinguser money decimal -->
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#amount").inputmask("integer",{
-            groupSeparator: ".",
-            autoGroup: true,
-            prefix: '$'
-        });
-    });
-</script>
-<!-- end mask -->
-@stop

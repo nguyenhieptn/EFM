@@ -37,9 +37,9 @@
                                             <th>Amount</th>
                                         </tr>
                                         @foreach($expenses as $i)
-                                        <tr>
+                                        <tr class="edit" id="row{{$i->id}}">
                                             <td>{{ date("d/m",strtotime($i->created_at)) }}</td>
-                                            <td class="edit">{{ $i->description }} </td>
+                                            <td >{{ $i->description }} </td>
                                             <td class="hidden-xs hidden-sm">{{ $i->name }}</td>
                                             <td width="20px" align="right">{{ number_format($i->amount,0,'','.') }}</td>
                                         </tr>
@@ -71,9 +71,9 @@
 
 </section>
 <section>
-    <div id="dialog-form" title="Create new user" class="box box-body exeditor">
-
+    <div id="dialog-form" title="Editor box">
     </div><!-- /.box-body -->
+
 </section>
 @stop
 @section('foot')
@@ -88,13 +88,13 @@
 <script type="text/javascript">
     $(function() {
         var base_url="http://localhost/EFM/public_html";
-        var exdata = 1;
+
         $('.edit').click( function(){
+            var id = parseInt($(this).attr('id').substring(3));
             $('#dialog-form').bPopup({
                 content:'ajax', //'ajax', 'iframe' or 'image'
                 contentContainer:'#dialog-form',
-                loadData: exdata,
-                loadUrl:base_url+'/expense'
+                loadUrl:base_url+'/api/expense/'+id+'/edit'
             });
         });
 

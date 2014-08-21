@@ -1,9 +1,10 @@
-<?php namespace api;
+<?php namespace controllers\api\v1;
 
+use Illuminate\View\View;
 use models\admin\Expense;
 use models\admin\Income;
 
-class ExpenseController extends \BaseController {
+class ExpenseApiController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -94,7 +95,18 @@ class ExpenseController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+        $id = \Auth::id();
+        $month = \Input::get('month',date("m"));
+        $year = \Input::get('year',date("Y"));
+
+        $startDate = date("Y-m-d H:i:s",strtotime("$year-$month-01") );
+        $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
+
+        $accounts = \User::find($id)->accounts()->get();
+        $categories = \User::find($id)->categories()->where('type','=','1')->get();
+
+        return \View::make('api.expense.edit')->with('categories',$categories)
+                                              ->with('accounts',$accounts);
 	}
 
 
