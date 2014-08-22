@@ -1,4 +1,4 @@
-<div class="box box-info ">
+<div class="box box-info " id="edit-form">
     <div class="box-header">
         <h3 class="box-title">New Expense</h3>
         @if ($errors->any())

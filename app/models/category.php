@@ -49,4 +49,10 @@ class Category extends \Eloquent
 
         return $incomeCat;
     }
+
+    public function  expenses()
+    {
+        return $this->hasMany('expenses');
+    }
+
 }

@@ -83,7 +83,6 @@
 {{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
-{{ HTML::script('js/jquery.bpopup.min.js')}}
 <!-- POpup editor -->
 <script type="text/javascript">
     $(function() {
@@ -91,11 +90,8 @@
 
         $('.edit').click( function(){
             var id = parseInt($(this).attr('id').substring(3));
-            $('#dialog-form').bPopup({
-                content:'ajax', //'ajax', 'iframe' or 'image'
-                contentContainer:'#dialog-form',
-                loadUrl:base_url+'/api/expense/'+id+'/edit'
-            });
+            $('html,body').animate({ scrollTop: $('#edit-form').offset().top }, 1000);
+            //alert(id);
         });
 
     });

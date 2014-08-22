@@ -63,4 +63,14 @@ class Expense extends \Eloquent
         $this->attributes['amount'] = (int)str_replace('.','',$value);
 
     }
+
+    public function category()
+    {
+        return $this->belongsTo('category');
+    }
+
+    public function account()
+    {
+        return $this->belongsTo('account');
+    }
 }

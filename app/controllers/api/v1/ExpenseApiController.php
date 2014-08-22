@@ -93,7 +93,7 @@ class ExpenseApiController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($eid)
 	{
         $id = \Auth::id();
         $month = \Input::get('month',date("m"));
@@ -105,7 +105,13 @@ class ExpenseApiController extends \BaseController {
         $accounts = \User::find($id)->accounts()->get();
         $categories = \User::find($id)->categories()->where('type','=','1')->get();
 
+        $expense = Expense::find($eid);
+
+
+        //var_dump($expense->category->name); exit;
+
         return \View::make('api.expense.edit')->with('categories',$categories)
+                                              ->with('expense',$expense)
                                               ->with('accounts',$accounts);
 	}
 
