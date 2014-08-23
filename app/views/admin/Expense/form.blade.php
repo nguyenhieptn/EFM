@@ -34,7 +34,7 @@
             <textarea name="description" class="form-control" rows="3" placeholder="Enter ..."></textarea>
         </div>
         <br />
-        <div class="form-group">
+        <div class="form-group text-center">
             <button class="btn btn-success btn-lg">Submit Expense</button>
         </div>
         {{ Form::hidden('user_id',Auth::id()) }}

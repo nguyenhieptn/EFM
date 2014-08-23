@@ -87,7 +87,6 @@
 <script type="text/javascript">
     $(function() {
         var base_url = $(location).attr('href').replace("/expense","");
-        console.log(base_url);
 
         $('.edit').click( function(){
             //This is id of the row
@@ -101,8 +100,10 @@
                     "eid": id
                 },
                 success: function(result) {
-                    // Instead of calling the div name, I need to be able to target it with $(this) and .parent() to make sure only 1 video change, but for now I only want the response to replace the video
+                    //placing new form
                     $("#form-holder").html(result);
+
+                    //trigger currency formater
                     $(".amount").inputmask("integer",{
                         groupSeparator: ".",
                         autoGroup: true,
