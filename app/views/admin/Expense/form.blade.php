@@ -2,10 +2,11 @@
     <div class="box-header">
         <h3 class="box-title">New Expense</h3>
         @if ($errors->any())
-        <ul>
+        <ul class="alert alert-danger alert-dismissable">
             {{ implode('', $errors->all('<li class="error">:message</li>')) }}
         </ul>
         @endif
+
     </div>
     <div class="box-body">
         {{ Form::open(array('url'=>'expense')) }}

@@ -22,10 +22,26 @@ Route::post("user/store",'controllers\admin\UserController@store');
 Route::post("user/actionlogin",'controllers\admin\UserController@actionlogin');
 Route::get("user/logout",'controllers\admin\UserController@logout');
 
+// ALL FILTER HERE
+//csrf filter
+Route::filter('csrf', function()
+{
+    if (Request::getMethod() !== 'GET' && Session::token() != Input::get('_token'))
+    {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
+});
 
+//Guest filter
 Route::filter('auth.admin', function() {
     // if not logged in redirect to the login page
     if (Auth::guest()) return Redirect::guest('user/login');
+});
+
+//admin filter
+Route::filter('auth.admin', function() {
+    // if not logged in redirect to the login page
+    if (Auth::check()) return Redirect::guest('dashboard');
 });
 
 
@@ -47,5 +63,9 @@ Route::group(array('prefix'=>'api','before' => 'auth.admin'), function(){
     Route::resource("expense",'controllers\api\v1\ExpenseApiController');
 
 });
+
+
+
+
 
 

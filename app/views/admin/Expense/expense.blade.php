@@ -96,9 +96,6 @@
             $.ajax({
                 url: base_url+'/api/expense/'+id+'/edit',
                 type: "GET",
-                data: {
-                    "eid": id
-                },
                 success: function(result) {
                     //placing new form
                     $("#form-holder").html(result);
@@ -109,6 +106,8 @@
                         autoGroup: true,
                         prefix: '$'
                     });
+
+                    //delete button
                 }
             });
 
