@@ -86,7 +86,8 @@
 <!-- POpup editor -->
 <script type="text/javascript">
     $(function() {
-        var base_url="http://localhost/EFM/public_html";
+        var base_url = $(location).attr('href').replace("/expense","");
+        console.log(base_url);
 
         $('.edit').click( function(){
             //This is id of the row
