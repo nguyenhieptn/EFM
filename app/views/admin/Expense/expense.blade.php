@@ -11,7 +11,7 @@
                         <div class="col-md-3 col-sm-4">@include('admin.Expense.Balance')</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-4">
+                        <div class="col-md-3 col-sm-4" id="form-holder">
                               @include('admin.Expense.form')
                         </div><!-- /.col (LEFT) -->
 
@@ -89,8 +89,29 @@
         var base_url="http://localhost/EFM/public_html";
 
         $('.edit').click( function(){
+            //This is id of the row
             var id = parseInt($(this).attr('id').substring(3));
-            $('html,body').animate({ scrollTop: $('#edit-form').offset().top }, 1000);
+
+            //ajax get edit form
+            $.ajax({
+                url: base_url+'/api/expense/'+id+'/edit',
+                type: "GET",
+                data: {
+                    "eid": id
+                },
+                success: function(result) {
+                    // Instead of calling the div name, I need to be able to target it with $(this) and .parent() to make sure only 1 video change, but for now I only want the response to replace the video
+                    $("#form-holder").html(result);
+                    $(".amount").inputmask("integer",{
+                        groupSeparator: ".",
+                        autoGroup: true,
+                        prefix: '$'
+                    });
+                }
+            });
+
+            //moving browser view to the form
+            $('html,body').animate({ scrollTop: $('#form-holder').offset().top }, 1000);
             //alert(id);
         });
 

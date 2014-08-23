@@ -102,8 +102,9 @@ class ExpenseApiController extends \BaseController {
         $startDate = date("Y-m-d H:i:s",strtotime("$year-$month-01") );
         $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
 
-        $accounts = \User::find($id)->accounts()->get();
-        $categories = \User::find($id)->categories()->where('type','=','1')->get();
+        $accounts = \User::find($id)->accounts()->lists('name','id');
+        $categories = \User::find($id)->categories()->where('type','=','1')->lists('name','id');
+
 
         $expense = Expense::find($eid);
 

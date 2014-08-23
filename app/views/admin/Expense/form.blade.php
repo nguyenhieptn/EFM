@@ -1,4 +1,4 @@
-<div class="box box-info " id="edit-form">
+<div class="box box-info " id="new-form">
     <div class="box-header">
         <h3 class="box-title">New Expense</h3>
         @if ($errors->any())
@@ -10,7 +10,7 @@
     <div class="box-body">
         {{ Form::open(array('url'=>'expense')) }}
         <div class="input-group">
-            <input name="amount" id="amount" type="text" class="form-control currenc" placeholder="Amount" value="{{ Input::old('amount') }}">
+            <input name="amount" id="amount" type="text" class="form-control currenc amount" placeholder="Amount" value="{{ Input::old('amount') }}">
             <span class="input-group-addon">VND</span>
         </div>
         <br />
@@ -47,7 +47,7 @@
 <!-- start maskinguser money decimal -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#amount").inputmask("integer",{
+        $(".amount").inputmask("integer",{
             groupSeparator: ".",
             autoGroup: true,
             prefix: '$'
