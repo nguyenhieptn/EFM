@@ -108,9 +108,24 @@ class ExpenseController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($eid)
 	{
-		//
+
+        $input = \Input::all();
+        $validation = \Validator::make($input, Expense::rules());
+
+        if ($validation->passes())
+        {
+            $expense = Expense::find($eid);
+            $expense->fill($input);
+            $expense->save();
+            return \Redirect::to('expense');
+        }else {
+            return \Redirect::route('expense.index')
+                ->withInput()
+                ->withErrors($validation)
+                ->with('message', 'There were validation errors.');
+        }
 	}
 
 
