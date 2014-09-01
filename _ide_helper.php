@@ -1464,7 +1464,7 @@ namespace {
     }
 
 
-    class Auth extends \Illuminate\Support\Facades\Auth{
+    class Auth::guest()Auth extends \Illuminate\Support\Facades\Auth{
 
         /**
          * Create an instance of the database driver.
