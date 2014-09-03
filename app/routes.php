@@ -38,16 +38,10 @@ Route::filter('auth.admin', function() {
     if (Auth::guest()) return Redirect::guest('user/login');
 });
 
-//admin filter
-Route::filter('auth.admin', function() {
-    // if not logged in redirect to the login page
-    if (Auth::check()) return Redirect::guest('dashboard');
-});
-
 
 //Admin route sections
 Route::group(array('before' => 'auth.admin'), function(){
-    Route::get("dashboard/",'controllers\admin\DashController@index');
+    Route::get("dashboard",'controllers\admin\DashController@index');
     Route::get("category/{cattype}",'controllers\admin\CategoryController@index');
     Route::resource("category",'controllers\admin\CategoryController');
     Route::resource("income",'controllers\admin\IncomeController');
