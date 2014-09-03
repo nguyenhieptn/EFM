@@ -39,6 +39,10 @@ Route::filter('auth.admin', function() {
 });
 
 
+
+
+
+
 //Admin route sections
 Route::group(array('before' => 'auth.admin'), function(){
     Route::get("dashboard",'controllers\admin\DashController@index');
