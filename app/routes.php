@@ -34,7 +34,7 @@ Route::filter('csrf', function()
 
 //Guest filter
 Route::filter('auth.admin', function() {
-    // if not logged in redirect to the login page
+    // if not logged in redicd rect to the login page
     if (Auth::guest()) return Redirect::guest('user/login');
 });
 
