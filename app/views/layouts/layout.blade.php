@@ -4,7 +4,7 @@
     @section('head')
     <!-- This is based header -->
     <meta charset="UTF-8">
-    <title>{{ $title or ' TITLE '}}</title>
+    <title>@yield("pageheader") EXP Solution</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     {{ HTML::style('css/bootstrap.min.css') }}
@@ -16,8 +16,6 @@
     {{ HTML::style('css/AdminLTE.css') }}
     {{ HTML::style('css/admin.exp.css') }}
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -28,37 +26,49 @@
 </head>
 <body class="skin-blue">
 <!-- header -->
-{{ View::make('admin.backend_layout.header') }}
+    @include('layouts.header')
 
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <aside class="left-side sidebar-offcanvas">
         <!-- Left side column. contains the logo and sidebar -->
-        {{ View::make('admin.backend_layout.left') }}
+        @include('layouts.left')
     </aside>
     <aside class="right-side">
         <!-- Right side column. Contains the navbar and content of the page -->
         <!-- Content Header (Page header) -->
-        {{ View::make('admin.backend_layout.contentheader') }}
+        <section class="content-header">
+            <h1>
+                @yield("pageheader")
+                <small>@yield("pageheader_small")</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
 
         <!-- Main content get from specific view -->
+        @if(Session::has('message'))
+        <div class="row">
+            <div class="col-md-12">
+                {{ Helper::displayAlert() }}
+            </div>
+        </div>
+        @endif
+
         @yield('content')
         <!-- /.content -->
 
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
-@section('foot')
+@section('footer')
 <!-- START foot code -->
 <!-- jQuery 2.0.2 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<!-- jQuery UI 1.10.3 -->
+{{ HTML::script('js/jquery.min.2.0.2.js')}}
 {{ HTML::script('js/jquery-ui-1.10.3.min.js')}}
-<!-- Bootstrap -->
 {{ HTML::script('js/bootstrap.min.js')}}
-<!-- AdminLTE App -->
 {{ HTML::script('js/AdminLTE/app.js')}}
-<!-- AdminLTE for demo purposes -->
-{{ HTML::script('js/AdminLTE/demo.js')}}
 <!-- END foot master code, add more use @parent at child page -->
 @show
 </body>

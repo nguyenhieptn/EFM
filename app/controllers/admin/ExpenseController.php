@@ -1,12 +1,4 @@
-<?php namespace controllers\admin;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
-use models\admin\Expense;
-use models\admin\Income;
-use Symfony\Component\Security\Core\Tests\Validator\Constraints\UserPasswordValidatorTest;
-
+<?php
 class ExpenseController extends \BaseController {
 
 	/**
@@ -16,41 +8,46 @@ class ExpenseController extends \BaseController {
 	 */
 	public function index()
 	{
+        $user = Sentry::getUser();
+        //access filter
+        if(!$user->hasAccess('member')){
+            return Redirect::to("dashboard")->with('message','danger|permission Denied!');
+        }
+
+
         //INIT variables value
-        $id = Auth::id();
-        $month = \Input::get('month',date("m"));
-        $year = \Input::get('year',date("Y"));
+        //filtering
+        if( Input::has("date") ) {
+            $date = explode(' TO ',Input::get("date"));
+            $startDate = date("Y-m-d 00:00:00",strtotime($date[0]));
+            Session::set("startDate",$startDate);
+            $endDate = date("Y-m-d 23:59:59",strtotime($date[1]) );
+            Session::set("endDate",$endDate);
+        }else{
+            if(Session::has("startDate") && Session::has("endDate")){
+                $startDate = Session::get("startDate");
+                $endDate = Session::get("endDate");
+            }else{
+                $startDate = date("Y-m-01 00:00:00");
+                $endDate = date("Y-m-t 23:59:59");
+            }
+        }
 
-        $startDate = date("Y-m-d H:i:s",strtotime("$year-$month-01") );
-        $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
-
-        $accounts = \User::find($id)->accounts()->get();
-        $categories = \User::find($id)->categories()->where('type','=','1')->get();
+        $categories = Category::where('type','=','1')->where('user_id','=',$user->id)->lists("name","id");
 
         //Prepare data for view
-        $expenses = Expense::getExpenseList($startDate,$endDate,$id);
-        $totalExpenses = Expense::getTotalAmount($startDate,$endDate,$id);
-        $totalIncome = Income::getTotalAmount($startDate,$endDate,$id);
+        $expenses = Expense::getExpenseList($startDate,$endDate);
+        $totalExpenses = Expense::getTotalAmount($startDate,$endDate);
+        $totalIncome = Income::getTotalAmount($startDate,$endDate);
+        //$sentry = \Cartalyst\Sentry\Facades\CI\Sentry::createSentry();
+        $payee = Sentry::findAllUsersWithAnyAccess(['admin','member','manager']);
 
         //render view
-        return View::make('admin.Expense.expense')->with('accounts',$accounts)
-                                                ->with('categories',$categories)
+        return View::make('admin.Expense.expense')->with('categories',$categories)
                                                 ->with('expenses',$expenses)
                                                 ->with('totalIncomes',$totalIncome)
                                                 ->with('totalExpenses',$totalExpenses)
-                                                ->with('month',$month)
-                                                ->with('year',$year);
-	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+                                                ->with('payee',$payee);
 	}
 
 
@@ -61,34 +58,26 @@ class ExpenseController extends \BaseController {
 	 */
 	public function store()
 	{
+        $user = Sentry::getUser();
+        if(!$user->hasAccess('member')){
+            return Redirect::to('dashboard')->with('message','danger|NO access');
+        }
 		$input = \Input::all();
+        $input['created_at'] = \Carbon\Carbon::parse($input['created_at'])->toDateTimeString();
         $validation = \Validator::make($input, Expense::rules());
+
 
         if ($validation->passes())
         {
-            Expense::create($input);
+            $expense = Expense::create($input);
 
-            return \Redirect::to('expense');
+            return \Redirect::to('finance/expense')->with('message', "success|Success added expenses");;
         }
 
-        return \Redirect::route('expense.index')
+        return \Redirect::route('finance.expense.index')
             ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+            ->with('message', "danger|".$validation->errors()->first());
 	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -98,7 +87,14 @@ class ExpenseController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+
+        $categories = Category::where('type','=','1')->lists('name','id');
+        $expense = Expense::find($id);
+        $payee = Sentry::findAllUsersWithAnyAccess(['admin','member','manager']);
+
+        return \View::make('admin.Expense.edit')->with('categories',$categories)
+            ->with("payee",$payee)
+            ->with('expense',$expense);
 	}
 
 
@@ -110,8 +106,20 @@ class ExpenseController extends \BaseController {
 	 */
 	public function update($eid)
 	{
+        $user = Sentry::getUser();
+        if(!$user->hasAccess('member')){
+            return Redirect::to('dashboard')->with('message','danger|NO access');
+        }
 
-        $input = \Input::all();
+        $input = \Input::only("user_id","amount","category_id","payee_id","description","delete","update",'created_at');
+        $input['created_at'] = \Carbon\Carbon::parse($input['created_at'])->toDateTimeString();
+
+        //cmd delete
+        if($input['delete']=='delete'){
+            return $this->destroy($eid);
+        }
+
+        //cmd update
         $validation = \Validator::make($input, Expense::rules());
 
         if ($validation->passes())
@@ -119,12 +127,11 @@ class ExpenseController extends \BaseController {
             $expense = Expense::find($eid);
             $expense->fill($input);
             $expense->save();
-            return \Redirect::to('expense');
+            return \Redirect::to('finance/expense')->with("message|Updated success.");
         }else {
-            return \Redirect::route('expense.index')
+            return \Redirect::route('finance.expense.index')
                 ->withInput()
-                ->withErrors($validation)
-                ->with('message', 'There were validation errors.');
+                ->with('message', 'danger|'.$validation->errors()->first());
         }
 	}
 
@@ -137,7 +144,13 @@ class ExpenseController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        $user = Sentry::getUser();
+        if(!$user->hasAccess('member')){
+            return Redirect::to('dashboard')->with('message','danger|NO access');
+        }
+        Expense::destroy($id);
+
+        return Redirect::back()->with('message','danger|Remove success');
 	}
 
 

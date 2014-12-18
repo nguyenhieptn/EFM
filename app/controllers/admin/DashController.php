@@ -1,4 +1,4 @@
-<?php namespace controllers\admin;
+<?php
 
 use Illuminate\Support\Facades\View;
 

@@ -5,6 +5,7 @@ class Category extends \Eloquent
 {
     protected $table='categories';
     protected $fillable = array('name','type','user_id');
+    public $timestamps = false;
 
     public static function rules()
     {
@@ -14,7 +15,8 @@ class Category extends \Eloquent
         );
     }
 
-    public static function getExpenseCat($startDate,$endDate,$user_id){
+    public static function getExpenseCat($startDate,$endDate){
+        $user = Sentry::getUser();
         $expenseCat = \DB::table('expenses')
             ->join('categories', 'categories.id', '=', 'expenses.category_id')
             ->select('expenses.id',
@@ -22,17 +24,17 @@ class Category extends \Eloquent
                 'expenses.description',
                 DB::raw('sum(expenses.amount) AS totalamount'),
                 'categories.name')
+            ->where('user_id','=',$user->id)
             ->whereRaw("`expenses`.`created_at`> '$startDate'
-                                    AND `expenses`.`created_at`<'$endDate'
-                                    AND `expenses`.`user_id`='$user_id'")
-            ->orderBy('expenses.created_at','desc')
+                                    AND `expenses`.`created_at`<'$endDate'")
+            ->orderBy('totalamount','desc')
             ->groupBy('expenses.category_id')
             ->get();
-
         return $expenseCat;
     }
 
-    public static function getIncomeCat($startDate,$endDate,$user_id){
+    public static function getIncomeCat($startDate,$endDate){
+        $user = Sentry::getUser();
         $incomeCat = \DB::table('incomes')
             ->join('categories', 'categories.id', '=', 'incomes.category_id')
             ->select('incomes.id',
@@ -40,13 +42,12 @@ class Category extends \Eloquent
                 'incomes.description',
                 DB::raw('sum(incomes.amount) AS totalamount'),
                 'categories.name')
+            ->where('user_id','=',$user->id)
             ->whereRaw("`incomes`.`created_at`> '$startDate'
-                                    AND `incomes`.`created_at`<'$endDate'
-                                    AND `incomes`.`user_id`='$user_id'")
+                                    AND `incomes`.`created_at`<'$endDate'")
             ->orderBy('incomes.created_at','desc')
             ->groupBy('incomes.category_id')
             ->get();
-
         return $incomeCat;
     }
 

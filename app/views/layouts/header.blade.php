@@ -1,6 +1,6 @@
 <header class="header">
 <!-- header logo: style can be found in header.less -->
-<a href="index.html" class="logo">
+<a href="/" class="logo">
     <!-- Add the class icon to your logo image or logo icon to add the margining -->
     EXP solution
 </a>
@@ -207,15 +207,15 @@
 <li class="dropdown user user-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="glyphicon glyphicon-user"></i>
-        <span>{{ Auth::user()->name }}<i class="caret"></i></span>
+        <span>{{ Sentry::getUser()->first_name." ".Sentry::getUser()->last_name }}<i class="caret"></i></span>
     </a>
     <ul class="dropdown-menu">
         <!-- User image -->
         <li class="user-header bg-light-blue">
             <img src="{{  URL::asset('img/avatar3.png') }}" class="img-circle" alt="User Image" />
             <p>
-                Jane Doe - Web Developer
-                <small>Member since Nov. 2012</small>
+                {{ Sentry::getUser()->first_name." ".Sentry::getUser()->last_name }} - Web Developer
+                <small>{{ Sentry::getUser()->groups->first()->name }}</small>
             </p>
         </li>
         <!-- Menu Body -->
@@ -233,7 +233,7 @@
         <!-- Menu Footer-->
         <li class="user-footer">
             <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <a href="{{ URL::to('user/selfedit') }}" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
                 <a href="{{ URL::to('user/logout') }}" class="btn btn-default btn-flat">Sign out</a>

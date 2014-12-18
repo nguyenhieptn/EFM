@@ -1,5 +1,4 @@
 <?php
-namespace controllers\admin;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
@@ -12,13 +11,14 @@ class CategoryController extends \BaseController {
 	 */
 	public function index($cattype = null)
 	{
+        $user = Sentry::getUser();
         if(!isset($cattype)){
             $cattype = Session::get('cattype');
         }else {
             Session::set('cattype',$cattype);
         }
 
-		$categories = \Category::whereRaw('type = ? and user_id=?',array($cattype,\Auth::id()))->get();
+		$categories = \Category::whereRaw('type = ?',array($cattype))->where('user_id','=',$user->id)->get();
 
         return \View::make('admin.Category.category',compact('categories'))->with('cattype',$cattype);
 	}
@@ -49,51 +49,13 @@ class CategoryController extends \BaseController {
         {
             \Category::create($input);
 
-            return \Redirect::to('category/'.$input['type']);
+            return \Redirect::to('finance/category/'.$input['type']);
         }
 
-        return \Redirect::route('admin.category.index')
+        return \Redirect::back()
             ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+            ->with('message', 'danger|There were validation errors.');
 	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
 
 	/**
 	 * Remove the specified resource from storage.
@@ -106,7 +68,7 @@ class CategoryController extends \BaseController {
 
         Category::find($id)->delete();
 
-        return \Redirect::to('category/'.Session::get('cattype'));
+        return \Redirect::to('finance/category/'.Session::get('cattype'));
 	}
 
 

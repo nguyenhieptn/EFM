@@ -4,7 +4,7 @@
         </div>
     </div><!-- /.box-body-->
 </div>
-@section('foot')
+@section('footer')
 @parent
 <!-- FLOT CHARTS -->
 

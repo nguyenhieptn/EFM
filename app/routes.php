@@ -10,60 +10,36 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+//valid all post request
+Route::when('*', 'csrf', array('post'));
 
-//print App::environment();
-//Route::get('/index.php','controllers\admin\UserController@login');
-Route::get('/','controllers\admin\UserController@login');
-
-//admin user login system
-Route::get("user/login",'controllers\admin\UserController@login');
-Route::get("user/register",'controllers\admin\UserController@create');
-Route::post("user/store",'controllers\admin\UserController@store');
-Route::post("user/actionlogin",'controllers\admin\UserController@actionlogin');
-Route::get("user/logout",'controllers\admin\UserController@logout');
-
-// ALL FILTER HERE
-//csrf filter
-Route::filter('csrf', function()
-{
-    if (Request::getMethod() !== 'GET' && Session::token() != Input::get('_token'))
-    {
-        throw new Illuminate\Session\TokenMismatchException;
-    }
-});
-
-//Guest filter
-Route::filter('auth.admin', function() {
-    // if not logged in redicd rect to the login page
-    if (Auth::guest()) return Redirect::guest('user/login');
-});
+//GUESS acess
+Route::get('/',"UserController@login");
+Route::get('/login','UserController@login');
+Route::post('/actionlogin','UserController@doLogin');
+Route::get('/user/logout','UserController@logout');
 
 
+/*
+ * Normal user SECTIONS
+ */
+Route::group(array("before"=>"Sentry"), function(){
+    Route::get('dashboard',['as'=>'dashboard','uses'=>'DashController@index']);
+    Route::get('/logout','UserController@logout');
+    Route::get('/user/selfedit','UserController@selfedit');
+    Route::put('/user/selfupdate',['as'=>'user.selfupdate','uses'=>'UserController@selfUpdate']);
 
+    //Users Section
+    Route::resource('users', 'UserController');
+    Route::get('users/member/{id}', 'UserController@showMember');
 
-
-
-//Admin route sections
-Route::group(array('before' => 'auth.admin'), function(){
-    Route::get("dashboard",'controllers\admin\DashController@index');
-    Route::get("category/{cattype}",'controllers\admin\CategoryController@index');
-    Route::resource("category",'controllers\admin\CategoryController');
-    Route::resource("income",'controllers\admin\IncomeController');
-    Route::resource("expense",'controllers\admin\ExpenseController');
-    Route::resource("account",'controllers\admin\AccountController');
-    Route::resource("report",'controllers\admin\ReportController');
-    Route::resource("reportyear",'controllers\admin\ReportYearController');
-});
-
-
-//api
-Route::group(array('prefix'=>'api','before' => 'auth.admin'), function(){
-    Route::resource("expense",'controllers\api\v1\ExpenseApiController');
+    //Finance Section
+    Route::group(["prefix"=>"finance"],function(){
+        Route::get("category/{cattype}",'CategoryController@index');
+        Route::resource("category",'CategoryController');
+        Route::resource("income",'IncomeController');
+        Route::resource("expense",'ExpenseController');
+        Route::get("report",'ReportController@index');
+    });
 
 });
-
-
-
-
-
-

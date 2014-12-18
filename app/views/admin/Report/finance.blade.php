@@ -1,4 +1,6 @@
-@extends('admin.backend_layout.layout')
+@section("pageheader","Financial report for $month - $year")
+@section("pagetitle","Financial report for $month - $year")
+@extends('layouts.layout')
 @section('content')
 <section class="content">
     <div class="row">
@@ -25,7 +27,7 @@
     <!-- end Table -->
 </section>
 @stop
-@section('foot')
+@section('footer')
 @parent
 {{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
 {{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}

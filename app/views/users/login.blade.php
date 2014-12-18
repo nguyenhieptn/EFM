@@ -2,7 +2,7 @@
 <html class="bg-black">
 <head>
     <meta charset="UTF-8">
-    <title>AdminLTE | Log in</title>
+    <title>EXP Solution| Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     {{ HTML::style('css/bootstrap.min.css') }}
@@ -21,12 +21,14 @@
  <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header">Sign In</div>
-            {{-- Show error --}}
-            {{ $errors->first('email') }}
-            {{ $errors->first('password') }}
-            {{ Form::open(array('url'=>'user/actionlogin')) }}
+            <div class="header">EXP Enterprise</div>
+            <!-- Main content get from specific view -->
+
+            {{ Form::open(array('url'=>'actionlogin')) }}
                 <div class="body bg-gray">
+                    @if(Session::has('message'))
+                    {{ Helper::displayAlert() }}
+                    @endif
                     <div class="form-group">
                         {{ Form::text('username',Input::old('username'),array('class'=>'form-control','placeholder'=>'Username')) }}
                     </div>

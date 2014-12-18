@@ -1,10 +1,10 @@
 <div class="box">
     <div class="box-header">
-        <h3>Latest 12 months Income/Expense analysis</h3>
-
+        <h3 class="pull-left">Salaries history for {{ $user->username }}</h3>
+        <a id="addSalary" data-toggle="modal" data-target="#createSalaryModal"  href="#" class="btn btn-default btn-sm pull-right" style="margin:20px 20px">Add New salary</a>
     </div><!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
-            <div style="height: 300px; padding: 0px; position: relative;" id="line-chart"></div>
+        <div style="height: 300px; padding: 0px; position: relative;" id="line-chart"></div>
     </div><!-- /.box-body -->
 </div>
 </div><!-- /.col (RIGHT) -->
@@ -12,25 +12,19 @@
 </div><!-- /.box-body -->
 @section("footer")
 @parent
+{{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.time.js')}}
 <script type="text/javascript">
-$(function() {
-    /*
-     * LINE CHART
-     * ----------
-     */
-    //LINE randomly generated data
+    $(function() {
+
     var line_data1 = {
-        data: {{ $totalExpensesByMonth }},
-        color: "#f56954"
-    };
-
-    var line_data2 = {
-        data: {{ $totalIncomesByMonth }},
-        color: "#0073b7"
-    };
+        data: {{ $salaries }},
+        color: "#00a65a"
+     };
 
 
-    $.plot("#line-chart", [line_data1,line_data2], {
+    $.plot("#line-chart", [line_data1], {
         grid: {
             hoverable: true,
             borderColor: "#f3f3f3",
@@ -54,7 +48,9 @@ $(function() {
             show: true
         },
         xaxis: {
-            show: true
+            show:true,
+            mode: "time",
+            timeformat: "%m-%Y"
         }
     });
 
@@ -70,7 +66,7 @@ $(function() {
             var x = item.datapoint[0].toFixed(2),
                 y = item.datapoint[1].toFixed(2);
 
-            $("#line-chart-tooltip").html("Month: "+ parseInt(x) + " = " + y)
+            $("#line-chart-tooltip").html(y)
                 .css({top: item.pageY - 30, left: item.pageX - 30})
                 .fadeIn(200);
         } else {
@@ -79,6 +75,6 @@ $(function() {
 
     });
     /* END LINE CHART */
-});
+    });
 </script>
 @stop

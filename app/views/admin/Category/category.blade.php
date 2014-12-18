@@ -1,11 +1,15 @@
-@extends('admin.backend_layout.layout')
+@extends('layouts.layout')
 @section('content')
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">
                 @if ($categories->count())
-                    Categories ( Cac nhom chi tieu)
+                    @if($categories->first()->type == 1)
+                        Categories Expense
+                    @else
+                        Categories Income
+                    @endif
                 @else
                     No Category
                 @endif
@@ -25,27 +29,18 @@
                 <tbody><tr>
                     <th>ID</th>
                     <th>Category Name</th>
-                    <th class="hidden-xs hidden-sm">Created</th>
-                    <th class="hidden-xs hidden-sm">Updated</th>
                     <th>Modify</th>
                 </tr>
                 @foreach ($categories as $c)
                 <tr>
                     <td>{{ $c->id }}</td>
                     <td>{{ $c->name }}</td>
-                    <td class="hidden-xs hidden-sm">{{ date("d m Y",strtotime($c->created_at)) }}</td>
-                    <td class="hidden-xs hidden-sm">{{ date("d m Y",strtotime($c->updated_at))  }}</td>
                     <td>
                         <div class="tools">
                         {{ Form::open(array('method' => 'DELETE', 'route' =>
-                         array('category.destroy', $c->id))) }}
+                         array('finance.category.destroy', $c->id))) }}
                         {{ Form::submit('delete', array('class' => 'fa fa-trash-o')) }}
-
                         {{ Form::close() }}
-                        <!--
-                        <i class="fa fa-trash-o" id="delete"></i>
-                            <i class="fa fa-edit"></i>
-                        -->
                         </div>
                     </td>
                 </tr>
@@ -54,6 +49,6 @@
         </div><!-- /.box-body -->
         @endif
     </div><!-- /.box -->
-    {{  View::make('admin.Category.form')->with('cattype',$cattype) }}
+    @include('admin.Category.form')
 </div>
 @stop

@@ -1,62 +1,64 @@
 <?php
-
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Cartalyst\Sentry\Users\Eloquent\User {
 
 	use UserTrait, RemindableTrait;
 
+    public static $rules = [
+        'username' => 'required',
+        'email' => 'email',
+        'password' => 'required|Same:password2',
+    ];
+    // Don't forget to fill this array
+   // protected $fillable = ['project_id','name','start','end','process','coder_id'];
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'users';
-    protected $fillable = array('name','username','password','email');
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password','password2');
+	protected $hidden = array('password', 'remember_token');
 
-    /*
-     * user rules
-     */
-    public static function rules()
-    {
-        return  array(
-            'username'   => 'required|unique:users',
-            'email'      => 'required|email|unique:users',
-            'password'   => 'required|min:6|same:password2',
-            'password2'  => 'required|min:6'
-        );
+
+    //list all user in a $group
+    public function scopeByGroup($query,$group){
+        if(in_array($group,['member','admin','customer','manager'])){
+            return $query->whereHas("groups",function($q) use($group){
+                $q->where("name",'=',$group);
+            });
+        }else {
+            return $query;
+        }
     }
 
-    public function setPasswordAttribute($value)
+
+    // project where user manage
+    public function manageProjects()
     {
-        $this->attributes['password'] = Hash::make($value);
+        return $this->hasMany('Project','manager_id');
     }
 
-    public function accounts()
+
+    //proejct where user join
+    public function projects()
     {
-        return $this->hasMany('account');
+        return $this->belongsToMany('Project');
     }
 
-    public function categories()
-    {
-        return $this->hasMany('category');
-    }
 
-    //related to income-user 1-n
-    public function income()
+    public function salaries()
     {
-        return $this->belongsTo('income');
+        return $this->hasMany('Salary','member_id','id')->orderBy('created_at','desc');
     }
 
 }

@@ -17,11 +17,8 @@
                         <div class="col-md-3 col-sm-4">@include('admin.Expense.Balance')</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-4" id="form-holder">
-                              @include('admin.Expense.form')
-                        </div><!-- /.col (LEFT) -->
 
-                        <div class="col-md-9 col-sm-8">
+                        <div class="col-md-12">
                             <div class="box">
                                 <div class="box-header">
                                     <div class="row">
@@ -57,17 +54,13 @@
                                             <th width="40px">Date</th>
                                             <th>Description</th>
                                             <th width="15%" class="hidden-xs hidden-sm">Category</th>
-                                            <th width="15%" class="hidden-xs hidden-sm">Payee</th>
                                             <th>Amount</th>
                                         </tr>
-                                        <?php $total = 0;?>
                                         @foreach($expenses as $i)
-                                        <?php $total += $i->amount;?>
                                         <tr class="edit" id="row{{$i->id}}" style="cursor: pointer">
                                             <td>{{ date("d/m",strtotime($i->created_at)) }}</td>
                                             <td >{{ $i->description }} </td>
                                             <td class="hidden-xs hidden-sm">{{ $i->name }}</td>
-                                            <td class="hidden-xs hidden-sm">{{ $i->payee }}</td>
                                             <td width="20px" align="right">{{ number_format($i->amount,0,'','.') }}</td>
                                         </tr>
                                         @endforeach
@@ -75,8 +68,7 @@
                                             <td>Total:</td>
                                             <td> </td>
                                             <td class="hidden-xs hidden-sm"></td>
-                                            <td class="hidden-xs hidden-sm"></td>
-                                            <td align="right">{{ number_format($total,0,'','.')    }}</td>
+                                            <td align="right">{{ number_format($totalExpenses,0,'','.')    }}</td>
                                         </tr>
 
                                         </tbody></table>
@@ -132,18 +124,8 @@
                         prefix: '$'
                     });
 
-                    //trigger live  update
-                    $('input[name="created_at"]').daterangepicker(
-                        {
-                            startDate: moment().subtract(29,'days'),
-                            endDate: moment(),
-                            format: 'YYYY-MM-DD',
-                            singleDatePicker: true
-                        },
-
-                        function(start, end, label) {
-                        }
-                    );
+                    //delete button
+                    //TODO
                 }
             });
 

@@ -3,11 +3,11 @@
         <h3 class="box-title">Incomes</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <div id="incomepie" style="width:100%;height:150px">
+        <div id="incomepie" style="width:100%;height:168px">
         </div>
     </div><!-- /.box-body-->
 </div>
-@section('foot')
+@section('footer')
 @parent
 <!-- FLOT CHARTS -->
 <script type="text/javascript">

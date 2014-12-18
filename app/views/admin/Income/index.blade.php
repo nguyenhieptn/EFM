@@ -3,80 +3,74 @@
 @parent
 {{ HTML::style('css/daterangepicker/daterangepicker-bs3.css') }}
 @stop
-@section("title","Expense Management")
-@section("pageheader","Expense Management")
+@section("title","Income Management")
+@section("pageheader","Income Management")
 @section('content')
 <section class="content">
     <!-- MAILBOX BEGIN -->
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-bsody">
+                <div class="box-body">
                     <div class="row"> <!-- charts system -->
-                        <div class="col-md-9 col-sm-8">@include('admin.Expense.ExpenseChart')</div>
-                        <div class="col-md-3 col-sm-4">@include('admin.Expense.Balance')</div>
+                        <div class="col-md-9 col-sm-8">@include('admin.Income.ExpenseChart')</div>
+                        <div class="col-md-3 col-sm-4">@include('admin.Income.Balance')</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-4" id="form-holder">
-                              @include('admin.Expense.form')
-                        </div><!-- /.col (LEFT) -->
-
-                        <div class="col-md-9 col-sm-8">
+                        <div class="col-md-12">
                             <div class="box">
                                 <div class="box-header">
                                     <div class="row">
                                         <div class="col-xs-12" style="padding-top:20px">
-                                            {{ Form::open(array('route' => array('finance.expense.index'), 'method' => 'get')) }}
-                                            <div class="col-md-2 form-group">
-                                                <select name="category_id" class="form-control">
-                                                    <option value="0">All Cat</option>
-                                                    @foreach ($categories as $id=>$name)
-                                                    <option value="{{ $id }}" @if($id==Input::get("category_id")) selected="selected" @endif>{{ $name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4 form-group">
-                                                <input  type="text" class="form-control input-sm" id="daterange"  name="date" placeholder="date" value="{{ Input::get('date') }}"/>
-                                            </div>
-                                            <div class="col-md-4 form-group">
-                                                <input  type="text" class="form-control input-sm"  name="search" placeholder="Search" value="{{ Input::get('search') }}"/>
-                                            </div>
-                                            <div class="col-md-2 text-center">
-                                                <button class="btn btn-default btn-sm">Apply</button>
-                                            </div>
+                                                {{ Form::open(array('route' => array('finance.income.index'), 'method' => 'get')) }}
+                                                <div class="col-md-2 form-group">
+                                                    <select name="category_id" class="form-control">
+                                                        <option value="0">All Cat</option>
+                                                        @foreach ($categories as $id=>$name)
+                                                        <option value="{{ $id }}" @if($id==Input::get("category_id")) selected="selected" @endif>{{ $name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 form-group">
+                                                    <input  type="text" class="form-control input-sm" id="daterange"  name="date" placeholder="date" value="{{ Input::get('date') }}"/>
+                                                </div>
+                                                <div class="col-md-4 form-group">
+                                                    <input  type="text" class="form-control input-sm"  name="search" placeholder="Search" value="{{ Input::get('search') }}"/>
+                                                </div>
+                                                <div class="col-md-2 text-center">
+                                                    <button class="btn btn-default btn-sm">Apply</button>
+                                                </div>
 
-                                            <input  type="hidden" id="from" name="from"  value="{{ Session::get('startDate') }}" />
-                                            <input  type="hidden" id="to" name="to"  value="{{ Session::get('endDate') }}"/>
-                                            {{ Form::close() }}
+                                                <input  type="hidden" id="from" name="from"  value="{{ Session::get('startDate') }}" />
+                                                <input  type="hidden" id="to" name="to"  value="{{ Session::get('endDate') }}"/>
+                                                {{ Form::close() }}
                                         </div>
                                     </div>
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tbody><tr>
-                                            <th width="40px">Date</th>
+                                            <th width="80px">Date</th>
                                             <th>Description</th>
-                                            <th width="15%" class="hidden-xs hidden-sm">Category</th>
-                                            <th width="15%" class="hidden-xs hidden-sm">Payee</th>
+                                            <th width="40px">Category</th>
                                             <th>Amount</th>
                                         </tr>
                                         <?php $total = 0;?>
-                                        @foreach($expenses as $i)
-                                        <?php $total += $i->amount;?>
+
+                                        @foreach($incomes as $i)
+                                        <?php $total+=$i->amount; ?>
                                         <tr class="edit" id="row{{$i->id}}" style="cursor: pointer">
-                                            <td>{{ date("d/m",strtotime($i->created_at)) }}</td>
-                                            <td >{{ $i->description }} </td>
-                                            <td class="hidden-xs hidden-sm">{{ $i->name }}</td>
-                                            <td class="hidden-xs hidden-sm">{{ $i->payee }}</td>
+                                            <td>{{ date("d/m/Y",strtotime($i->created_at)) }}</td>
+                                            <td>{{ $i->description }} </td>
+                                            <td>{{ $i->name }}</td>
                                             <td width="20px" align="right">{{ number_format($i->amount,0,'','.') }}</td>
                                         </tr>
                                         @endforeach
                                         <tr>
                                             <td>Total:</td>
                                             <td> </td>
-                                            <td class="hidden-xs hidden-sm"></td>
-                                            <td class="hidden-xs hidden-sm"></td>
-                                            <td align="right">{{ number_format($total,0,'','.')    }}</td>
+                                            <td></td>
+                                            <td width="20px" align="right">{{ number_format($total*1000,0,'','.')    }}</td>
                                         </tr>
 
                                         </tbody></table>
@@ -103,13 +97,23 @@
 @parent
 {{ HTML::script('js/plugins/input-mask/jquery.inputmask.js') }}
 {{ HTML::script('js/plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}
-{{ HTML::script('js/plugins/flot/jquery.flot.min.js')}}
-{{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js')}}
-{{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js')}}
+{{ HTML::script('js/plugins/flot/jquery.flot.min.js') }}
+{{ HTML::script('js/plugins/flot/jquery.flot.resize.min.js') }}
+{{ HTML::script('js/plugins/flot/jquery.flot.categories.min.js') }}
 {{ HTML::script('js/plugins/daterangepicker/daterangepicker.js')}}
 <!-- POpup editor -->
 <script type="text/javascript">
     $(function() {
+        //masking
+        $("#amount").inputmask("decimal",{
+            radixPoint:",",
+            groupSeparator: ".",
+            digits: 0,
+            autoGroup: true,
+            prefix: '$'
+        });
+
+        //AJAX edit
         //var base_url = $(location).attr('href').replace("/expense","");
         base_url = '{{ URL::to("/") }}';
 
@@ -119,7 +123,7 @@
 
             //ajax get edit form
             $.ajax({
-                url: base_url+'/finance/expense/'+id+'/edit',
+                url: base_url+'/finance/income/'+id+'/edit',
                 type: "GET",
                 success: function(result) {
                     //placing new form
@@ -132,18 +136,8 @@
                         prefix: '$'
                     });
 
-                    //trigger live  update
-                    $('input[name="created_at"]').daterangepicker(
-                        {
-                            startDate: moment().subtract(29,'days'),
-                            endDate: moment(),
-                            format: 'YYYY-MM-DD',
-                            singleDatePicker: true
-                        },
-
-                        function(start, end, label) {
-                        }
-                    );
+                    //delete button
+                    //TODO
                 }
             });
 
@@ -151,6 +145,7 @@
             $('html,body').animate({ scrollTop: $('#form-holder').offset().top }, 1000);
             //alert(id);
         });
+
 
         //DATE PICKER
 
@@ -178,4 +173,5 @@
     });
 </script>
 <!-- end Popup -->
+
 @stop

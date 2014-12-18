@@ -13,61 +13,13 @@
 
 App::before(function($request)
 {
-	//
+    Common::globalXssClean();
 });
 
 
 App::after(function($request, $response)
 {
 	//
-});
-
-/*
-|--------------------------------------------------------------------------
-| Authentication Filters
-|--------------------------------------------------------------------------
-|
-| The following filters are used to verify that the user of the current
-| session is logged into this application. The "basic" filter easily
-| integrates HTTP Basic authentication for quick, simple checking.
-|
-*/
-
-Route::filter('auth', function()
-{
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
-});
-
-
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
-});
-
-/*
-|--------------------------------------------------------------------------
-| Guest Filter
-|--------------------------------------------------------------------------
-|
-| The "guest" filter is the counterpart of the authentication filters as
-| it simply checks that the current user is not logged in. A redirect
-| response will be issued if they are, which you may freely change.
-|
-*/
-
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
 });
 
 /*
@@ -81,10 +33,77 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('csrf', function() {
+    $token = Request::ajax() ? Request::header('X-CSRF-Token') : Input::get('_token');
+    if (Session::token() != $token)
+        throw new Illuminate\Session\TokenMismatchException;
 });
+
+
+/**
+ * Sentry Permission update
+ */
+/**
+* Sentry filter
+*
+* Checks if the user is logged in
+*/
+Route::filter('Sentry', function()
+{
+    if ( ! Sentry::check()) {
+        return Redirect::to('login');
+    }
+});
+
+/**
+ * hasAcces filter (permissions)
+ *
+ * Check if the user has permission (group/user)
+ */
+Route::filter('hasAccess', function($route, $request, $value)
+{
+    try
+    {
+        $user = Sentry::getUser();
+
+        if( ! $user->hasAccess($value))
+        {
+            return Response::make('Unauthorized', 401);
+        }
+    }
+    catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+    {
+        return Redirect::route('login')->withErrors(array(Lang::get('user.notfound')));
+    }
+
+});
+
+/**
+ * InGroup filter
+ *
+ * Check if the user belongs to a group
+ */
+Route::filter('inGroup', function($route, $request, $value)
+{
+    try
+    {
+        $user = Sentry::getUser();
+
+        $group = Sentry::findGroupByName($value);
+
+        if( ! $user->inGroup($group))
+        {
+            return Response::make('Unauthorized', 401);
+        }
+    }
+    catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+    {
+        return Redirect::route('dashboard')->withErrors(array(Lang::get('user.notfound')));
+    }
+
+    catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+    {
+        return Redirect::route('dashboard')->withErrors(array(Lang::get('group.notfound')));
+    }
+});
+

@@ -3,10 +3,12 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
+
                 <img src="{{ URL::asset('img/avatar3.png') }}" class="img-circle" alt="User Image" />
+
             </div>
             <div class="pull-left info">
-                <p>Hello,{{ Auth::user()->name}}</p>
+                <p>Hello, {{ Sentry::getUser()->first_name." ".Sentry::getUser()->last_name }}</p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -28,48 +30,26 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ URL::to('expense')}}">
-                    <i class="fa fa-sign-out"></i> <span>Expense</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ URL::to('income')}}">
-                    <i class="fa fa-sign-in"></i> <span>Income</span>
-                </a>
-            </li>
 
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-bar-chart-o"></i>
-                    <span>Report</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ URL::to('report') }}"><i class="fa fa-angle-double-right"></i> Month</a></li>
-                    <li><a href="{{ URL::to('reportyear') }}"><i class="fa fa-angle-double-right"></i> Year</a></li>
-                    <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Week</a></li>
-                </ul>
-            </li>
+
+            <li><a href="{{ URL::to('finance/income') }}"><i class="fa  fa-sign-in"></i>Income</a></li>
+            <li><a href="{{ URL::to('finance/expense') }}"><i class="fa fa-sign-out"></i>Expense</a></li>
+            <li><a href="{{ URL::to('finance/report') }}"><i class="fa  fa-keyboard-o"></i>Report</a></li>
+
 
             <li class="treeview" >
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
-                    <span>Category</span>
+                    <span>Configuration</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::to('category/1') }}"><i class="fa fa-angle-double-right"></i> Expense</a></li>
-                    <li><a href="{{ URL::to('category/0') }}"><i class="fa fa-angle-double-right"></i> Income</a></li>
+                    <li><a href="{{ URL::to('finance/category/1') }}"><i class="fa fa-angle-double-right"></i>Category Expense</a></li>
+                    <li><a href="{{ URL::to('finance/category/0') }}"><i class="fa fa-angle-double-right"></i>Category Income</a></li>
+                    <li><a href="{{ URL::to('salaries') }}"><i class="fa fa-angle-double-right"></i>Salaries</a></li>
 
                 </ul>
             </li>
-            <li>
-                <a href="{{ URL::to('account') }}">
-                    <i class="fa fa-sign-out"></i> <span>Accounts</span>
-                </a>
-            </li>
-
         </ul>
     </section>
     <!-- /.sidebar -->

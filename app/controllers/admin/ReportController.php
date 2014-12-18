@@ -1,7 +1,4 @@
-<?php namespace controllers\admin;
-use models\admin\Expense;
-use models\admin\Income;
-
+<?php
 class ReportController extends \BaseController {
 
 	/**
@@ -11,31 +8,50 @@ class ReportController extends \BaseController {
 	 */
 	public function index()
 	{
+        $user = Sentry::getUser();
+        //access filter
+        if(!$user->hasAccess('member')){
+            return Redirect::to("dashboard")->with('message','danger|permission Denied!');
+        }
+
         //INIT variables value
-        $id = \Auth::id();
         $month = \Input::get('month',date("m"));
         $year = \Input::get('year',date("Y"));
 
-        $startDate = date("Y-m-d H:i:s",strtotime("$year-$month-01") );
-        $endDate = date("Y-m-t H:i:s",strtotime("$year-$month-01") );
+        $startDate = date("Y-m-d 00:00:00",strtotime("$year-$month-01") );
+        $endDate = date("Y-m-t 23:59:59",strtotime("$year-$month-01") );
 
-        $accounts = \User::find($id)->accounts()->get();
-        $categories = \User::find($id)->categories()->where('type','=','1')->get();
+        $categories = Category::where('type','=','1')->get();
 
-        $expenseCategories = \Category::getExpenseCat($startDate,$endDate,$id);
-        $incomeCategories = \Category::getIncomeCat($startDate,$endDate,$id);
+        $expenseCategories = Category::getExpenseCat($startDate,$endDate);
+        $incomeCategories = Category::getIncomeCat($startDate,$endDate);
 
         //Prepare data for view
-        $expenses = Expense::getExpenseList($startDate,$endDate,$id);
-        $totalExpenses = Expense::getTotalAmount($startDate,$endDate,$id);
-        $totalIncome = Income::getTotalAmount($startDate,$endDate,$id);
+        $expenses = Expense::getExpenseList($startDate,$endDate);
+        $totalExpenses = Expense::getTotalAmount($startDate,$endDate);
+        $totalIncome = Income::getTotalAmount($startDate,$endDate);
         $totalBudget = 7000;
+
+        $totalExpensesByMonth = Expense::getTotalAmountByMonth(date("Y-m-d H:i:s", strtotime("-12 months")),date("Y-m-d H:i:s"));
+        $totalIncomesByMonth = Income::getTotalAmountByMonth(date("Y-m-d H:i:s", strtotime("-12 months")),date("Y-m-d H:i:s"));
+
+        $data = array();
+        $data2 = array();
+        foreach($totalExpensesByMonth as $em){
+            $data[]= [$em->month,(int)$em->monthAmount];
+        }
+        foreach($totalIncomesByMonth as $em){
+            $data2[]= [$em->month,(int)$em->monthAmount];
+        }
+        $totalExpensesByMonth = json_encode($data);
+        $totalIncomesByMonth = json_encode($data2);
+
 
         //get expends group by categories
 
 
         //render view
-        return \View::make('admin.Report.month')->with('accounts',$accounts)
+        return \View::make('admin.Report.finance')
             ->with('categories',$categories)
             ->with('expenses',$expenses)
             ->with('totalIncome',$totalIncome)
@@ -43,6 +59,8 @@ class ReportController extends \BaseController {
             ->with('totalBudget',$totalBudget)
             ->with('expenseCat',$expenseCategories)
             ->with('incomeCat',$incomeCategories)
+            ->with('totalExpensesByMonth',$totalExpensesByMonth)
+            ->with('totalIncomesByMonth',$totalIncomesByMonth)
             ->with('month',$month)
             ->with('year',$year);
 

@@ -3,12 +3,12 @@
         <h3 class="box-title">Expense</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <div id="expensepie" style="width:100%;height:150px">
+        <div id="expensepie" style="width:100%;height:168px">
         </div>
     </div><!-- /.box-body-->
 </div>
 <?php //var_dump($expenseCat); exit; ?>
-@section('foot')
+@section('footer')
 @parent
 <!-- FLOT CHARTS -->
 <script type="text/javascript">
