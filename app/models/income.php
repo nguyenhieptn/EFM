@@ -29,6 +29,7 @@ class Income extends \Eloquent
                 'incomes.description',
                 'incomes.amount',
                 'categories.name')
+            ->where('incomes.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`incomes`.`created_at`>= '$startDate'
                     AND `incomes`.`created_at`<='$endDate'")
             ->orderBy('incomes.created_at','desc');
@@ -55,6 +56,7 @@ class Income extends \Eloquent
             ->select('incomes.id',
                 'incomes.created_at',
                 'incomes.amount')
+            ->where('incomes.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`incomes`.`created_at`>= '$startDate'
                     AND `incomes`.`created_at`<='$endDate'")
             ->orderBy('incomes.created_at','desc')
@@ -72,6 +74,7 @@ class Income extends \Eloquent
                     'MONTH(created_at) as month,'.
                     'sum(incomes.amount) as monthAmount')
             )
+            ->where('incomes.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`incomes`.`created_at`>= '$startDate'
                     AND `incomes`.`created_at`<='$endDate'")
             ->orderBy('incomes.created_at','asc')
@@ -82,8 +85,6 @@ class Income extends \Eloquent
 
     public function setAmountAttribute($value)
     {
-
         $this->attributes['amount'] = (int)str_replace('.','',$value);
-
     }
 }

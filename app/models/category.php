@@ -24,17 +24,17 @@ class Category extends \Eloquent
                 'expenses.description',
                 DB::raw('sum(expenses.amount) AS totalamount'),
                 'categories.name')
-            ->where('user_id','=',$user->id)
+            ->where('expenses.user_id','=',$user->id)
             ->whereRaw("`expenses`.`created_at`> '$startDate'
                                     AND `expenses`.`created_at`<'$endDate'")
             ->orderBy('totalamount','desc')
             ->groupBy('expenses.category_id')
             ->get();
+
         return $expenseCat;
     }
 
     public static function getIncomeCat($startDate,$endDate){
-        $user = Sentry::getUser();
         $incomeCat = \DB::table('incomes')
             ->join('categories', 'categories.id', '=', 'incomes.category_id')
             ->select('incomes.id',
@@ -42,7 +42,7 @@ class Category extends \Eloquent
                 'incomes.description',
                 DB::raw('sum(incomes.amount) AS totalamount'),
                 'categories.name')
-            ->where('user_id','=',$user->id)
+            ->where('incomes.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`incomes`.`created_at`> '$startDate'
                                     AND `incomes`.`created_at`<'$endDate'")
             ->orderBy('incomes.created_at','desc')

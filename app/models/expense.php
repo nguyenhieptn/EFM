@@ -25,6 +25,7 @@ class Expense extends \Eloquent
                 'expenses.description',
                 'expenses.amount',
                 'categories.name')
+            ->where('expenses.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`expenses`.`created_at`>= '$startDate'
                                     AND `expenses`.`created_at`<='$endDate'")
             ->orderBy('expenses.category_id')
@@ -49,6 +50,7 @@ class Expense extends \Eloquent
             ->select('expenses.id',
                 'expenses.created_at',
                 'expenses.amount')
+            ->where('expenses.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`expenses`.`created_at`>= '$startDate'
                     AND `expenses`.`created_at`<='$endDate'")
             ->orderBy('expenses.created_at','desc')
@@ -67,6 +69,7 @@ class Expense extends \Eloquent
                 'MONTH(created_at) as month,'.
                 'sum(expenses.amount) as monthAmount')
             )
+            ->where('expenses.user_id','=',Sentry::getUser()->id)
             ->whereRaw("`expenses`.`created_at`>= '$startDate'
                     AND `expenses`.`created_at`<='$endDate'")
             ->orderBy('expenses.created_at','asc')
