@@ -46,7 +46,6 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ URL::to('finance/category/1') }}"><i class="fa fa-angle-double-right"></i>Category Expense</a></li>
                     <li><a href="{{ URL::to('finance/category/0') }}"><i class="fa fa-angle-double-right"></i>Category Income</a></li>
-                    <li><a href="{{ URL::to('salaries') }}"><i class="fa fa-angle-double-right"></i>Salaries</a></li>
 
                 </ul>
             </li>
