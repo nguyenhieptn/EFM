@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 	'HiepLaptop' => array('NguyenHiep-Lap'),
-    'cpanel.cloudone.vn' => array('EFM')
+    'EFM' => array('cpanel.cloudone.vn')
 ));
 
 /*
