@@ -8,10 +8,10 @@ class AccountsTableSeeder extends Seeder
         DB::table('accounts')->delete();
         DB::table('accounts')->insert(
             array(
-                array('name'=>'Tien Mat'),
-                array('name'=>'ACB'),
-                array('name'=>'VietInBank'),
-                array('name'=>'Paypal'),
+                array('name'=>'Tien Mat','user_id'=>'16'),
+                array('name'=>'ACB','user_id'=>'16'),
+                array('name'=>'VietInBank','user_id'=>'16'),
+                array('name'=>'Paypal','user_id'=>'16'),
             )
         );
     }
