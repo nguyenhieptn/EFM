@@ -30,13 +30,9 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-
-
             <li><a href="{{ URL::to('finance/income') }}"><i class="fa  fa-sign-in"></i>Income</a></li>
             <li><a href="{{ URL::to('finance/expense') }}"><i class="fa fa-sign-out"></i>Expense</a></li>
             <li><a href="{{ URL::to('finance/report') }}"><i class="fa  fa-keyboard-o"></i>Report</a></li>
-
-
             <li class="treeview" >
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
